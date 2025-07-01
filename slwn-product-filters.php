@@ -3,7 +3,7 @@
  * Plugin Name: Woocommerce Product Filters
  * Plugin URI: https://slawinsky.pl/wtyczki/woocommerce-product-filters
  * Description: Wtyczka umożliwiająca filtrowanie produktów WooCommerce po atrybutach i kategoriach. Różne rodzaje stylów filtrów: lista rozwijana, przyciski, checkboxy (wielokrotny wybór) i suwaki zakresu.
- * Version: 1.1.0
+ * Version: 1.1.1
  * Author: Maciej Sławiński
  * Author URI: https://slawinsky.pl
  * Text Domain: slwn-product-filters
@@ -27,7 +27,7 @@ if (!in_array('woocommerce/woocommerce.php', apply_filters('active_plugins', get
 }
 
 // Define plugin constants
-define('SLWN_PRODUCT_FILTERS_VERSION', '1.1.0');
+define('SLWN_PRODUCT_FILTERS_VERSION', '1.1.1');
 define('SLWN_PRODUCT_FILTERS_URL', plugin_dir_url(__FILE__));
 define('SLWN_PRODUCT_FILTERS_PATH', plugin_dir_path(__FILE__));
 define('SLWN_PRODUCT_FILTERS_BASENAME', plugin_basename(__FILE__));

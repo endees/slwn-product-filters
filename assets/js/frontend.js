@@ -175,12 +175,36 @@
          */
         function saveProductFilters(filters) {
             try {
-                localStorage.setItem(
-                    "product_filters",
-                    JSON.stringify(filters)
-                );
+                // Filtruj puste wartości przed zapisaniem - bądź bardzo restryktywny
+                const nonEmptyFilters = {};
+                for (const key in filters) {
+                    if (
+                        filters.hasOwnProperty(key) &&
+                        filters[key] !== "" &&
+                        filters[key] !== null &&
+                        filters[key] !== undefined &&
+                        filters[key].toString().trim() !== ""
+                    ) {
+                        nonEmptyFilters[key] = filters[key];
+                    }
+                }
+
+                // Jeśli nie ma żadnych filtrów, usuń localStorage
+                if (Object.keys(nonEmptyFilters).length === 0) {
+                    localStorage.removeItem("product_filters");
+                } else {
+                    localStorage.setItem(
+                        "product_filters",
+                        JSON.stringify(nonEmptyFilters)
+                    );
+                }
             } catch (e) {
-                // Nie można zapisać filtrów
+                // Nie można zapisać filtrów - wyczyść localStorage w razie błędu
+                try {
+                    localStorage.removeItem("product_filters");
+                } catch (cleanupError) {
+                    // Nie można też wyczyścić localStorage
+                }
             }
         }
 
@@ -346,8 +370,7 @@
                     }
                 });
 
-                // 2. Jeśli brak filtrów w URL, użyj localStorage jako backup
-                // ALE tylko jeśli URL nie jest stroną sklepu bez filtrów
+                // 2. Jeśli brak filtrów w URL, sprawdź localStorage ale z ostrożnością
                 if (!hasFiltersInURL && savedFilters) {
                     const currentPath = window.location.pathname;
                     const shopPath = "/sklep/";
@@ -357,19 +380,38 @@
 
                     // Jeśli jesteśmy na stronie sklepu bez parametrów, to znaczy że filtry zostały wyczyszczone
                     if (isShopPage && window.location.search === "") {
-                        // Wyczyść localStorage
                         localStorage.removeItem("product_filters");
                         filtersToApply = {};
                     } else {
-                        const parsedFilters = JSON.parse(savedFilters);
-                        for (const key in parsedFilters) {
-                            if (
-                                parsedFilters.hasOwnProperty(key) &&
-                                isFilterParam(key)
-                            ) {
-                                // Uwzględnij także puste filtry - są ważne dla czyszczenia checkboxów
-                                filtersToApply[key] = parsedFilters[key];
+                        // Sprawdź czy localStorage zawiera jakiekolwiek niepuste filtry
+                        try {
+                            const parsedFilters = JSON.parse(savedFilters);
+                            let hasNonEmptyFilters = false;
+
+                            for (const key in parsedFilters) {
+                                if (
+                                    parsedFilters.hasOwnProperty(key) &&
+                                    isFilterParam(key) &&
+                                    parsedFilters[key] !== "" &&
+                                    parsedFilters[key] !== null &&
+                                    parsedFilters[key] !== undefined
+                                ) {
+                                    filtersToApply[key] = parsedFilters[key];
+                                    hasNonEmptyFilters = true;
+                                }
                             }
+
+                            // Jeśli localStorage zawiera tylko puste filtry, wyczyść go i nie przywracaj nic
+                            if (!hasNonEmptyFilters) {
+                                localStorage.removeItem("product_filters");
+                                filtersToApply = {};
+                                return; // Wyjdź wcześnie - nie przywracaj niczego
+                            }
+                        } catch (e) {
+                            // Błąd parsowania localStorage - wyczyść je
+                            localStorage.removeItem("product_filters");
+                            filtersToApply = {};
+                            return;
                         }
                     }
                 } else if (hasFiltersInURL) {
@@ -756,6 +798,9 @@
 
         // Inicjalizacja wszystkich funkcji związanych z filtrami
         function init() {
+            // Upewnij się, że stan UI jest spójny z URL na początku
+            ensureUIStateConsistency();
+
             initCategoryChangeHandlers();
             initWidgetFormHandlers();
             initResetFiltersButton();
@@ -787,6 +832,55 @@
                     });
                 }, 200);
             }, 500); // Zwiększone opóźnienie
+        }
+
+        /**
+         * Upewnij się, że stan UI jest spójny z URL na początku ładowania strony
+         */
+        function ensureUIStateConsistency() {
+            const urlParams = new URLSearchParams(window.location.search);
+            let hasFiltersInURL = false;
+
+            // Sprawdź czy są filtry w URL
+            urlParams.forEach(function (value, key) {
+                if (isFilterParam(key) && value !== "") {
+                    hasFiltersInURL = true;
+                }
+            });
+
+            // Jeśli nie ma filtrów w URL, upewnij się że ukryte pola checkboxów są puste
+            if (!hasFiltersInURL) {
+                $(".checkbox-values-holder").val("");
+
+                // Upewnij się również, że localStorage jest puste
+                const savedFilters = localStorage.getItem("product_filters");
+                if (savedFilters) {
+                    try {
+                        const parsedFilters = JSON.parse(savedFilters);
+                        let hasNonEmptyFilters = false;
+
+                        for (const key in parsedFilters) {
+                            if (
+                                parsedFilters.hasOwnProperty(key) &&
+                                isFilterParam(key) &&
+                                parsedFilters[key] !== "" &&
+                                parsedFilters[key] !== null &&
+                                parsedFilters[key] !== undefined &&
+                                parsedFilters[key].toString().trim() !== ""
+                            ) {
+                                hasNonEmptyFilters = true;
+                                break;
+                            }
+                        }
+
+                        if (!hasNonEmptyFilters) {
+                            localStorage.removeItem("product_filters");
+                        }
+                    } catch (e) {
+                        localStorage.removeItem("product_filters");
+                    }
+                }
+            }
         }
 
         /**

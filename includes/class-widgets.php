@@ -102,24 +102,25 @@ class SLWN_Product_Filter_Attributes_Widget extends WP_Widget {
         $current_max = !empty($max_value) ? $max_value : $max;
         $slider_id = 'range-slider-' . $attribute . '-' . mt_rand(1000, 9999);
         ?>
-        <div class="slwn-product-filter slwn-product-filter--range">
-            <div class="slwn-range-slider-container">
-                <div class="slwn-range-values">
-                    <span class="min-value"><?php echo esc_html($min_label); ?>: <span class="value"><?php echo esc_html($current_min . $unit); ?></span></span>
-                    <span class="max-value"><?php echo esc_html($max_label); ?>: <span class="value"><?php echo esc_html($current_max . $unit); ?></span></span>
-                </div>
-                <div id="<?php echo esc_attr($slider_id); ?>" class="slwn-range-slider" 
-                     data-min="<?php echo esc_attr($min); ?>" 
-                     data-max="<?php echo esc_attr($max); ?>"
-                     data-current-min="<?php echo esc_attr($current_min); ?>"
-                     data-current-max="<?php echo esc_attr($current_max); ?>"
-                     data-unit="<?php echo esc_attr($unit); ?>">
-                </div>
-                <input type="hidden" name="min_pa_<?php echo esc_attr($attribute); ?>" id="<?php echo esc_attr($slider_id); ?>-min" value="<?php echo esc_attr($current_min); ?>">
-                <input type="hidden" name="max_pa_<?php echo esc_attr($attribute); ?>" id="<?php echo esc_attr($slider_id); ?>-max" value="<?php echo esc_attr($current_max); ?>">
-            </div>
+<div class="slwn-product-filter slwn-product-filter--range">
+    <div class="slwn-range-slider-container">
+        <div class="slwn-range-values">
+            <span class="min-value"><?php echo esc_html($min_label); ?>: <span
+                    class="value"><?php echo esc_html($current_min . $unit); ?></span></span>
+            <span class="max-value"><?php echo esc_html($max_label); ?>: <span
+                    class="value"><?php echo esc_html($current_max . $unit); ?></span></span>
         </div>
-        <?php
+        <div id="<?php echo esc_attr($slider_id); ?>" class="slwn-range-slider" data-min="<?php echo esc_attr($min); ?>"
+            data-max="<?php echo esc_attr($max); ?>" data-current-min="<?php echo esc_attr($current_min); ?>"
+            data-current-max="<?php echo esc_attr($current_max); ?>" data-unit="<?php echo esc_attr($unit); ?>">
+        </div>
+        <input type="hidden" name="min_pa_<?php echo esc_attr($attribute); ?>"
+            id="<?php echo esc_attr($slider_id); ?>-min" value="<?php echo esc_attr($current_min); ?>">
+        <input type="hidden" name="max_pa_<?php echo esc_attr($attribute); ?>"
+            id="<?php echo esc_attr($slider_id); ?>-max" value="<?php echo esc_attr($current_max); ?>">
+    </div>
+</div>
+<?php
         $this->add_range_slider_script($slider_id, $min, $max, $current_min, $current_max, $unit, $attribute);
     }
 
@@ -141,44 +142,48 @@ class SLWN_Product_Filter_Attributes_Widget extends WP_Widget {
             $current_values = array_map('trim', $current_values);
         }
         ?>
-        <div class="slwn-product-filter slwn-product-filter--<?php echo esc_attr($attribute); ?> slwn-product-filter--<?php echo esc_attr($display_type); ?>">
-            <?php if ($display_type === 'select') : ?>
-                <select name="pa_<?php echo esc_attr($attribute); ?>" class="slwn-product-filter__select filter-control">
-                    <option value=""><?php echo esc_html($placeholder); ?></option>
-                    <?php foreach ($terms as $term) : ?>
-                        <option value="<?php echo esc_attr($term->slug); ?>" <?php selected($current_filter, $term->slug); ?>>
-                            <?php echo esc_html($term->name); ?> (<?php echo $term->count; ?>)
-                        </option>
-                    <?php endforeach; ?>
-                </select>
-            <?php elseif ($display_type === 'checkbox') : ?>
-                <div class="slwn-product-filter__checkboxes">
-                    <?php foreach ($terms as $term) : ?>
-                        <label class="slwn-filter-option slwn-filter-option--checkbox">
-                            <input type="checkbox" name="pa_<?php echo esc_attr($attribute); ?>[]" value="<?php echo esc_attr($term->slug); ?>" 
-                                   <?php checked(in_array($term->slug, $current_values), true); ?> 
-                                   class="slwn-product-filter__checkbox filter-control"
-                                   data-attribute="<?php echo esc_attr($attribute); ?>">
-                            <span class="slwn-filter-checkbox-label"><?php echo esc_html($term->name); ?> (<?php echo $term->count; ?>)</span>
-                        </label>
-                    <?php endforeach; ?>
-                    <!-- Hidden field do przechowywania wartości dla URL -->
-                    <input type="hidden" name="pa_<?php echo esc_attr($attribute); ?>" value="<?php echo esc_attr($current_filter); ?>" class="checkbox-values-holder">
-                </div>
-            <?php else : // buttons ?>
-                <div class="slwn-product-filter__buttons">
-                    <?php foreach ($terms as $term) : ?>
-                        <label class="slwn-filter-option">
-                            <input type="radio" name="pa_<?php echo esc_attr($attribute); ?>" value="<?php echo esc_attr($term->slug); ?>" 
-                                   <?php checked($current_filter, $term->slug); ?> 
-                                   class="slwn-product-filter__radio">
-                            <span class="slwn-filter-button"><?php echo esc_html($term->name); ?> (<?php echo $term->count; ?>)</span>
-                        </label>
-                    <?php endforeach; ?>
-                </div>
-            <?php endif; ?>
-        </div>
-        <?php
+<div
+    class="slwn-product-filter slwn-product-filter--<?php echo esc_attr($attribute); ?> slwn-product-filter--<?php echo esc_attr($display_type); ?>">
+    <?php if ($display_type === 'select') : ?>
+    <select name="pa_<?php echo esc_attr($attribute); ?>" class="slwn-product-filter__select filter-control">
+        <option value=""><?php echo esc_html($placeholder); ?></option>
+        <?php foreach ($terms as $term) : ?>
+        <option value="<?php echo esc_attr($term->slug); ?>" <?php selected($current_filter, $term->slug); ?>>
+            <?php echo esc_html($term->name); ?> (<?php echo $term->count; ?>)
+        </option>
+        <?php endforeach; ?>
+    </select>
+    <?php elseif ($display_type === 'checkbox') : ?>
+    <div class="slwn-product-filter__checkboxes">
+        <?php foreach ($terms as $term) : ?>
+        <label class="slwn-filter-option slwn-filter-option--checkbox">
+            <input type="checkbox" name="pa_<?php echo esc_attr($attribute); ?>[]"
+                value="<?php echo esc_attr($term->slug); ?>"
+                <?php checked(in_array($term->slug, $current_values), true); ?>
+                class="slwn-product-filter__checkbox filter-control"
+                data-attribute="<?php echo esc_attr($attribute); ?>">
+            <span class="slwn-filter-checkbox-label"><?php echo esc_html($term->name); ?>
+                (<?php echo $term->count; ?>)</span>
+        </label>
+        <?php endforeach; ?>
+        <!-- Hidden field do przechowywania wartości dla URL -->
+        <input type="hidden" name="pa_<?php echo esc_attr($attribute); ?>"
+            value="<?php echo esc_attr($current_filter); ?>" class="checkbox-values-holder">
+    </div>
+    <?php else : // buttons ?>
+    <div class="slwn-product-filter__buttons">
+        <?php foreach ($terms as $term) : ?>
+        <label class="slwn-filter-option">
+            <input type="radio" name="pa_<?php echo esc_attr($attribute); ?>"
+                value="<?php echo esc_attr($term->slug); ?>" <?php checked($current_filter, $term->slug); ?>
+                class="slwn-product-filter__radio">
+            <span class="slwn-filter-button"><?php echo esc_html($term->name); ?> (<?php echo $term->count; ?>)</span>
+        </label>
+        <?php endforeach; ?>
+    </div>
+    <?php endif; ?>
+</div>
+<?php
     }
 
     private function render_category_filter($parent_category, $display_type, $placeholder, $show_empty = false) {
@@ -204,47 +209,52 @@ class SLWN_Product_Filter_Attributes_Widget extends WP_Widget {
             $current_cat_values = array_map('trim', $current_cat_values);
         }
         ?>
-        <div class="slwn-product-filter slwn-product-filter--category slwn-product-filter--<?php echo esc_attr($display_type); ?>">
-            <?php if ($display_type === 'select') : ?>
-                <select name="product_cat" class="slwn-product-filter__select" data-shop-url="<?php echo esc_url(wc_get_page_permalink('shop')); ?>">
-                    <option value="" data-url="<?php echo esc_url(wc_get_page_permalink('shop')); ?>"><?php echo esc_html($placeholder); ?></option>
-                    <?php foreach ($categories as $category) : ?>
-                        <option value="<?php echo esc_attr($category->slug); ?>" 
-                                data-url="<?php echo esc_url(get_term_link($category)); ?>"
-                                <?php selected($current_cat_id, $category->term_id); ?>>
-                            <?php echo esc_html($category->name); ?> (<?php echo $category->count; ?>)
-                        </option>
-                    <?php endforeach; ?>
-                </select>
-            <?php elseif ($display_type === 'checkbox') : ?>
-                <div class="slwn-product-filter__checkboxes">
-                    <?php foreach ($categories as $category) : ?>
-                        <label class="slwn-filter-option slwn-filter-option--checkbox">
-                            <input type="checkbox" name="product_cat[]" value="<?php echo esc_attr($category->slug); ?>"
-                                   data-url="<?php echo esc_url(get_term_link($category)); ?>"
-                                   <?php checked(in_array($category->slug, $current_cat_values) || $current_cat_id === $category->term_id, true); ?>
-                                   class="slwn-product-filter__checkbox filter-control">
-                            <span class="slwn-filter-checkbox-label"><?php echo esc_html($category->name); ?> (<?php echo $category->count; ?>)</span>
-                        </label>
-                    <?php endforeach; ?>
-                    <!-- Hidden field do przechowywania wartości dla URL -->
-                    <input type="hidden" name="product_cat" value="<?php echo esc_attr($current_cat_filter ?: $current_cat_slug); ?>" class="checkbox-values-holder">
-                </div>
-            <?php else : // buttons ?>
-                <div class="slwn-product-filter__buttons">
-                    <?php foreach ($categories as $category) : ?>
-                        <label class="slwn-filter-option">
-                            <input type="radio" name="product_cat" value="<?php echo esc_attr($category->slug); ?>"
-                                   data-url="<?php echo esc_url(get_term_link($category)); ?>"
-                                   <?php checked($current_cat_id, $category->term_id); ?>
-                                   class="slwn-product-filter__radio">
-                            <span class="slwn-filter-button"><?php echo esc_html($category->name); ?> (<?php echo $category->count; ?>)</span>
-                        </label>
-                    <?php endforeach; ?>
-                </div>
-            <?php endif; ?>
-        </div>
-        <?php
+<div
+    class="slwn-product-filter slwn-product-filter--category slwn-product-filter--<?php echo esc_attr($display_type); ?>">
+    <?php if ($display_type === 'select') : ?>
+    <select name="product_cat" class="slwn-product-filter__select"
+        data-shop-url="<?php echo esc_url(wc_get_page_permalink('shop')); ?>">
+        <option value="" data-url="<?php echo esc_url(wc_get_page_permalink('shop')); ?>">
+            <?php echo esc_html($placeholder); ?></option>
+        <?php foreach ($categories as $category) : ?>
+        <option value="<?php echo esc_attr($category->slug); ?>"
+            data-url="<?php echo esc_url(get_term_link($category)); ?>"
+            <?php selected($current_cat_id, $category->term_id); ?>>
+            <?php echo esc_html($category->name); ?> (<?php echo $category->count; ?>)
+        </option>
+        <?php endforeach; ?>
+    </select>
+    <?php elseif ($display_type === 'checkbox') : ?>
+    <div class="slwn-product-filter__checkboxes">
+        <?php foreach ($categories as $category) : ?>
+        <label class="slwn-filter-option slwn-filter-option--checkbox">
+            <input type="checkbox" name="product_cat[]" value="<?php echo esc_attr($category->slug); ?>"
+                data-url="<?php echo esc_url(get_term_link($category)); ?>"
+                <?php checked(in_array($category->slug, $current_cat_values) || $current_cat_id === $category->term_id, true); ?>
+                class="slwn-product-filter__checkbox filter-control">
+            <span class="slwn-filter-checkbox-label"><?php echo esc_html($category->name); ?>
+                (<?php echo $category->count; ?>)</span>
+        </label>
+        <?php endforeach; ?>
+        <!-- Hidden field do przechowywania wartości dla URL -->
+        <input type="hidden" name="product_cat"
+            value="<?php echo esc_attr($current_cat_filter ?: $current_cat_slug); ?>" class="checkbox-values-holder">
+    </div>
+    <?php else : // buttons ?>
+    <div class="slwn-product-filter__buttons">
+        <?php foreach ($categories as $category) : ?>
+        <label class="slwn-filter-option">
+            <input type="radio" name="product_cat" value="<?php echo esc_attr($category->slug); ?>"
+                data-url="<?php echo esc_url(get_term_link($category)); ?>"
+                <?php checked($current_cat_id, $category->term_id); ?> class="slwn-product-filter__radio">
+            <span class="slwn-filter-button"><?php echo esc_html($category->name); ?>
+                (<?php echo $category->count; ?>)</span>
+        </label>
+        <?php endforeach; ?>
+    </div>
+    <?php endif; ?>
+</div>
+<?php
     }
 
     private function get_attribute_range_values($attribute_taxonomy) {
@@ -284,66 +294,72 @@ class SLWN_Product_Filter_Attributes_Widget extends WP_Widget {
 
     private function add_range_slider_script($slider_id, $min, $max, $current_min, $current_max, $unit, $attribute) {
         ?>
-        <script>
-        jQuery(document).ready(function($) {
-            if (typeof noUiSlider !== 'undefined') {
-                var slider = document.getElementById('<?php echo esc_js($slider_id); ?>');
-                if (slider) {
-                    noUiSlider.create(slider, {
-                        start: [<?php echo esc_js($current_min); ?>, <?php echo esc_js($current_max); ?>],
-                        connect: true,
-                        range: {
-                            'min': <?php echo esc_js($min); ?>,
-                            'max': <?php echo esc_js($max); ?>
-                        },
-                        step: 1,
-                        format: {
-                            to: function(value) { return Math.round(value); },
-                            from: function(value) { return Math.round(value); }
-                        }
-                    });
-
-                    slider.noUiSlider.on('update', function(values) {
-                        var minValue = values[0];
-                        var maxValue = values[1];
-                        var $minInput = $('#<?php echo esc_js($slider_id); ?>-min');
-                        var $maxInput = $('#<?php echo esc_js($slider_id); ?>-max');
-                        
-                        $minInput.val(minValue);
-                        $maxInput.val(maxValue);
-                        
-                        // Trigger change event dla localStorage
-                        $minInput.trigger('change');
-                        $maxInput.trigger('change');
-                        
-                        $('#<?php echo esc_js($slider_id); ?>').closest('.slwn-range-slider-container').find('.min-value .value').text(minValue + '<?php echo esc_js($unit); ?>');
-                        $('#<?php echo esc_js($slider_id); ?>').closest('.slwn-range-slider-container').find('.max-value .value').text(maxValue + '<?php echo esc_js($unit); ?>');
-                        
-                        // Zapisz w localStorage ale NIE submituj automatycznie
-                        try {
-                            // Sprawdź czy nie jesteśmy w trakcie przywracania filtrów
-                            if (typeof window.isRestoringFilters !== 'undefined' && window.isRestoringFilters) {
-                                return;
-                            }
-                            
-                            var filters = JSON.parse(localStorage.getItem('product_filters') || '{}');
-                            filters['filter_<?php echo esc_js($attribute); ?>_min'] = minValue;
-                            filters['filter_<?php echo esc_js($attribute); ?>_max'] = maxValue;
-                            localStorage.setItem('product_filters', JSON.stringify(filters));
-                            
-                            // NATYCHMIAST aktualizuj URL
-                            if (typeof window.slwnUpdateURLWithFilters === 'function') {
-                                window.slwnUpdateURLWithFilters(filters);
-                            }
-                        } catch (e) {
-                            // Błąd podczas zapisywania filtrów
-                        }
-                    });
+<script>
+jQuery(document).ready(function($) {
+    if (typeof noUiSlider !== 'undefined') {
+        var slider = document.getElementById('<?php echo esc_js($slider_id); ?>');
+        if (slider) {
+            noUiSlider.create(slider, {
+                start: [<?php echo esc_js($current_min); ?>, <?php echo esc_js($current_max); ?>],
+                connect: true,
+                range: {
+                    'min': <?php echo esc_js($min); ?>,
+                    'max': <?php echo esc_js($max); ?>
+                },
+                step: 1,
+                format: {
+                    to: function(value) {
+                        return Math.round(value);
+                    },
+                    from: function(value) {
+                        return Math.round(value);
+                    }
                 }
-            }
-        });
-        </script>
-        <?php
+            });
+
+            slider.noUiSlider.on('update', function(values) {
+                var minValue = values[0];
+                var maxValue = values[1];
+                var $minInput = $('#<?php echo esc_js($slider_id); ?>-min');
+                var $maxInput = $('#<?php echo esc_js($slider_id); ?>-max');
+
+                $minInput.val(minValue);
+                $maxInput.val(maxValue);
+
+                // Trigger change event dla localStorage
+                $minInput.trigger('change');
+                $maxInput.trigger('change');
+
+                $('#<?php echo esc_js($slider_id); ?>').closest('.slwn-range-slider-container').find(
+                    '.min-value .value').text(minValue + '<?php echo esc_js($unit); ?>');
+                $('#<?php echo esc_js($slider_id); ?>').closest('.slwn-range-slider-container').find(
+                    '.max-value .value').text(maxValue + '<?php echo esc_js($unit); ?>');
+
+                // Zapisz w localStorage ale NIE submituj automatycznie
+                try {
+                    // Sprawdź czy nie jesteśmy w trakcie przywracania filtrów
+                    if (typeof window.isRestoringFilters !== 'undefined' && window.isRestoringFilters) {
+                        return;
+                    }
+
+                    var filters = JSON.parse(localStorage.getItem('product_filters') || '{}');
+                    filters['filter_<?php echo esc_js($attribute); ?>_min'] = minValue;
+                    filters['filter_<?php echo esc_js($attribute); ?>_max'] = maxValue;
+                    localStorage.setItem('product_filters', JSON.stringify(filters));
+
+                    // NATYCHMIAST aktualizuj URL
+                    if (typeof window.slwnUpdateURLWithFilters === 'function') {
+                        window.slwnUpdateURLWithFilters(filters);
+                    }
+                } catch (e) {
+                    // Błąd podczas zapisywania filtrów
+                }
+            });
+        }
+    }
+});
+</script>
+<?php
     }
 
     public function form($instance) {
@@ -358,32 +374,36 @@ class SLWN_Product_Filter_Attributes_Widget extends WP_Widget {
         $max_label = !empty($instance['max_label']) ? $instance['max_label'] : 'Max';
         $unit = !empty($instance['unit']) ? $instance['unit'] : '';
         ?>
-        <p>
-            <label for="<?php echo esc_attr($this->get_field_id('title')); ?>"><?php _e('Tytuł:'); ?></label>
-            <input class="widefat" id="<?php echo esc_attr($this->get_field_id('title')); ?>" name="<?php echo esc_attr($this->get_field_name('title')); ?>" type="text" value="<?php echo esc_attr($title); ?>">
-        </p>
-        <p>
-            <label for="<?php echo esc_attr($this->get_field_id('filter_type')); ?>">Typ filtra:</label>
-            <select class="widefat" id="<?php echo esc_attr($this->get_field_id('filter_type')); ?>" name="<?php echo esc_attr($this->get_field_name('filter_type')); ?>">
-                <option value="attribute" <?php selected($filter_type, 'attribute'); ?>>Atrybut</option>
-                <option value="category" <?php selected($filter_type, 'category'); ?>>Kategoria</option>
-            </select>
-        </p>
-        <p class="attribute-field" <?php echo $filter_type !== 'attribute' ? 'style="display:none;"' : ''; ?>>
-            <label for="<?php echo esc_attr($this->get_field_id('attribute')); ?>">Atrybut:</label>
-            <select class="widefat" id="<?php echo esc_attr($this->get_field_id('attribute')); ?>" name="<?php echo esc_attr($this->get_field_name('attribute')); ?>">
-                <option value="">Wybierz atrybut</option>
-                <?php
+<p>
+    <label for="<?php echo esc_attr($this->get_field_id('title')); ?>"><?php _e('Tytuł:'); ?></label>
+    <input class="widefat" id="<?php echo esc_attr($this->get_field_id('title')); ?>"
+        name="<?php echo esc_attr($this->get_field_name('title')); ?>" type="text"
+        value="<?php echo esc_attr($title); ?>">
+</p>
+<p>
+    <label for="<?php echo esc_attr($this->get_field_id('filter_type')); ?>">Typ filtra:</label>
+    <select class="widefat" id="<?php echo esc_attr($this->get_field_id('filter_type')); ?>"
+        name="<?php echo esc_attr($this->get_field_name('filter_type')); ?>">
+        <option value="attribute" <?php selected($filter_type, 'attribute'); ?>>Atrybut</option>
+        <option value="category" <?php selected($filter_type, 'category'); ?>>Kategoria</option>
+    </select>
+</p>
+<p class="attribute-field" <?php echo $filter_type !== 'attribute' ? 'style="display:none;"' : ''; ?>>
+    <label for="<?php echo esc_attr($this->get_field_id('attribute')); ?>">Atrybut:</label>
+    <select class="widefat" id="<?php echo esc_attr($this->get_field_id('attribute')); ?>"
+        name="<?php echo esc_attr($this->get_field_name('attribute')); ?>">
+        <option value="">Wybierz atrybut</option>
+        <?php
                 $attributes = wc_get_attribute_taxonomies();
                 foreach ($attributes as $attr) {
                     echo '<option value="' . esc_attr($attr->attribute_name) . '"' . selected($attribute, $attr->attribute_name, false) . '>' . esc_html($attr->attribute_label) . '</option>';
                 }
                 ?>
-            </select>
-        </p>
-        <p class="category-field" <?php echo $filter_type !== 'category' ? 'style="display:none;"' : ''; ?>>
-            <label for="<?php echo esc_attr($this->get_field_id('parent_category')); ?>">Kategoria nadrzędna:</label>
-            <?php
+    </select>
+</p>
+<p class="category-field" <?php echo $filter_type !== 'category' ? 'style="display:none;"' : ''; ?>>
+    <label for="<?php echo esc_attr($this->get_field_id('parent_category')); ?>">Kategoria nadrzędna:</label>
+    <?php
             wp_dropdown_categories(array(
                 'show_option_all' => 'Wszystkie główne kategorie',
                 'option_none_value' => 0,
@@ -395,43 +415,55 @@ class SLWN_Product_Filter_Attributes_Widget extends WP_Widget {
                 'hide_empty' => false,
             ));
             ?>
-        </p>
-        <p>
-            <label for="<?php echo esc_attr($this->get_field_id('display_type')); ?>">Sposób wyświetlania:</label>
-            <select class="widefat" id="<?php echo esc_attr($this->get_field_id('display_type')); ?>" name="<?php echo esc_attr($this->get_field_name('display_type')); ?>">
-                <option value="select" <?php selected($display_type, 'select'); ?>>Lista rozwijana</option>
-                <option value="buttons" <?php selected($display_type, 'buttons'); ?>>Przyciski</option>
-                <option value="checkbox" <?php selected($display_type, 'checkbox'); ?>>Checkboxy (wielokrotny wybór)</option>
-                <option value="range" <?php selected($display_type, 'range'); ?>>Suwak zakresu</option>
-            </select>
-        </p>
-        <p>
-            <label for="<?php echo esc_attr($this->get_field_id('placeholder')); ?>">Tekst domyślny:</label>
-            <input class="widefat" id="<?php echo esc_attr($this->get_field_id('placeholder')); ?>" name="<?php echo esc_attr($this->get_field_name('placeholder')); ?>" type="text" value="<?php echo esc_attr($placeholder); ?>">
-        </p>
-        <p class="show-empty-field">
-            <input type="checkbox" id="<?php echo esc_attr($this->get_field_id('show_empty')); ?>" name="<?php echo esc_attr($this->get_field_name('show_empty')); ?>" value="1" <?php checked(1, $show_empty); ?> />
-            <label for="<?php echo esc_attr($this->get_field_id('show_empty')); ?>">
-                📊 Pokaż opcje bez produktów (w tym opcje z 0 produktów)
-            </label>
-            <br><small style="color: #666;">Domyślnie pokazywane są tylko opcje z produktami. Zaznacz aby pokazać wszystkie opcje atrybutu/kategorii.</small>
-        </p>
-        <div class="range-fields" <?php echo $display_type !== 'range' ? 'style="display:none;"' : ''; ?>>
-            <h4>⚙️ Ustawienia suwaka zakresu</h4>
-            <p>
-                <label for="<?php echo esc_attr($this->get_field_id('min_label')); ?>">Etykieta minimum:</label>
-                <input class="widefat" id="<?php echo esc_attr($this->get_field_id('min_label')); ?>" name="<?php echo esc_attr($this->get_field_name('min_label')); ?>" type="text" value="<?php echo esc_attr($min_label); ?>">
-            </p>
-            <p>
-                <label for="<?php echo esc_attr($this->get_field_id('max_label')); ?>">Etykieta maksimum:</label>
-                <input class="widefat" id="<?php echo esc_attr($this->get_field_id('max_label')); ?>" name="<?php echo esc_attr($this->get_field_name('max_label')); ?>" type="text" value="<?php echo esc_attr($max_label); ?>">
-            </p>
-            <p>
-                <label for="<?php echo esc_attr($this->get_field_id('unit')); ?>">Jednostka:</label>
-                <input class="widefat" id="<?php echo esc_attr($this->get_field_id('unit')); ?>" name="<?php echo esc_attr($this->get_field_name('unit')); ?>" type="text" value="<?php echo esc_attr($unit); ?>" placeholder="np. kg, m, szt">
-            </p>
-        </div>
-        <?php
+</p>
+<p>
+    <label for="<?php echo esc_attr($this->get_field_id('display_type')); ?>">Sposób wyświetlania:</label>
+    <select class="widefat" id="<?php echo esc_attr($this->get_field_id('display_type')); ?>"
+        name="<?php echo esc_attr($this->get_field_name('display_type')); ?>">
+        <option value="select" <?php selected($display_type, 'select'); ?>>Lista rozwijana</option>
+        <option value="buttons" <?php selected($display_type, 'buttons'); ?>>Przyciski</option>
+        <option value="checkbox" <?php selected($display_type, 'checkbox'); ?>>Checkboxy (wielokrotny wybór)</option>
+        <option value="range" <?php selected($display_type, 'range'); ?>>Suwak zakresu</option>
+    </select>
+</p>
+<p>
+    <label for="<?php echo esc_attr($this->get_field_id('placeholder')); ?>">Tekst domyślny:</label>
+    <input class="widefat" id="<?php echo esc_attr($this->get_field_id('placeholder')); ?>"
+        name="<?php echo esc_attr($this->get_field_name('placeholder')); ?>" type="text"
+        value="<?php echo esc_attr($placeholder); ?>">
+</p>
+<p class="show-empty-field">
+    <input type="checkbox" id="<?php echo esc_attr($this->get_field_id('show_empty')); ?>"
+        name="<?php echo esc_attr($this->get_field_name('show_empty')); ?>" value="1"
+        <?php checked(1, $show_empty); ?> />
+    <label for="<?php echo esc_attr($this->get_field_id('show_empty')); ?>">
+        📊 Pokaż opcje bez produktów (w tym opcje z 0 produktów)
+    </label>
+    <br><small style="color: #666;">Domyślnie pokazywane są tylko opcje z produktami. Zaznacz aby pokazać wszystkie
+        opcje atrybutu/kategorii.</small>
+</p>
+<div class="range-fields" <?php echo $display_type !== 'range' ? 'style="display:none;"' : ''; ?>>
+    <h4>⚙️ Ustawienia suwaka zakresu</h4>
+    <p>
+        <label for="<?php echo esc_attr($this->get_field_id('min_label')); ?>">Etykieta minimum:</label>
+        <input class="widefat" id="<?php echo esc_attr($this->get_field_id('min_label')); ?>"
+            name="<?php echo esc_attr($this->get_field_name('min_label')); ?>" type="text"
+            value="<?php echo esc_attr($min_label); ?>">
+    </p>
+    <p>
+        <label for="<?php echo esc_attr($this->get_field_id('max_label')); ?>">Etykieta maksimum:</label>
+        <input class="widefat" id="<?php echo esc_attr($this->get_field_id('max_label')); ?>"
+            name="<?php echo esc_attr($this->get_field_name('max_label')); ?>" type="text"
+            value="<?php echo esc_attr($max_label); ?>">
+    </p>
+    <p>
+        <label for="<?php echo esc_attr($this->get_field_id('unit')); ?>">Jednostka:</label>
+        <input class="widefat" id="<?php echo esc_attr($this->get_field_id('unit')); ?>"
+            name="<?php echo esc_attr($this->get_field_name('unit')); ?>" type="text"
+            value="<?php echo esc_attr($unit); ?>" placeholder="np. kg, m, szt">
+    </p>
+</div>
+<?php
     }
 
     public function update($new_instance, $old_instance) {
@@ -531,119 +563,188 @@ class SLWN_Product_Filter_Buttons_Widget extends WP_Widget {
                      (is_product_category() ? wc_get_page_permalink('shop') : 
                      get_permalink());
         ?>
-        <div class="slwn-filters-buttons">
-            <?php if ($show_filter) : ?>
-                <button type="button" class="slwn-filters-buttons__filter" onclick="slwnSubmitAllFilters()"><?php echo esc_html($filter_text); ?></button>
-            <?php endif; ?>
-            
-            <?php if ($show_reset) : ?>
-                <button type="button" class="slwn-filters-buttons__reset" onclick="slwnResetAllFilters('<?php echo esc_url($reset_url); ?>')"><?php echo esc_html($reset_text); ?></button>
-            <?php endif; ?>
-        </div>
+<div class="slwn-filters-buttons">
+    <?php if ($show_filter) : ?>
+    <button type="button" class="slwn-filters-buttons__filter"
+        onclick="slwnSubmitAllFilters()"><?php echo esc_html($filter_text); ?></button>
+    <?php endif; ?>
 
-        <script>
-        // Funkcja submit filtrów - zbiera filtry z formularzy i odświeża stronę
-        window.slwnSubmitAllFilters = function() {
-            // KROK 1: Najpierw zaktualizuj wszystkie ukryte pola checkboxów na podstawie aktualnego stanu
-            document.querySelectorAll('.checkbox-values-holder').forEach(function(hiddenField) {
-                const fieldName = hiddenField.name;
-                const checkboxName = fieldName + '[]';
-                const checkedBoxes = document.querySelectorAll('input[name="' + checkboxName + '"]:checked');
-                
+    <?php if ($show_reset) : ?>
+    <button type="button" class="slwn-filters-buttons__reset"
+        onclick="slwnResetAllFilters('<?php echo esc_url($reset_url); ?>')"><?php echo esc_html($reset_text); ?></button>
+    <?php endif; ?>
+</div>
+
+<script>
+// Funkcja submit filtrów - zbiera filtry z formularzy i odświeża stronę
+window.slwnSubmitAllFilters = function() {
+    // KROK 1: Najpierw zaktualizuj wszystkie ukryte pola checkboxów na podstawie aktualnego stanu
+    document.querySelectorAll('.checkbox-values-holder').forEach(function(hiddenField) {
+        const fieldName = hiddenField.name;
+        const checkboxName = fieldName + '[]';
+        const checkedBoxes = document.querySelectorAll('input[name="' + checkboxName + '"]:checked');
+
+        if (checkedBoxes.length > 0) {
+            const values = Array.from(checkedBoxes).map(cb => cb.value);
+            hiddenField.value = values.join(',');
+        } else {
+            hiddenField.value = ''; // Wyczyść jeśli nic nie zaznaczone
+        }
+    });
+
+    // KROK 2: Stwórz nowy formularz do submitu
+    const submitForm = document.createElement('form');
+    submitForm.method = 'GET';
+    submitForm.action = '<?php echo esc_url(wc_get_page_permalink('shop')); ?>';
+
+    // KROK 3: Zbierz WSZYSTKIE możliwe filtry (nawet puste) aby wyczyścić URL
+    const allFilterNames = new Set();
+
+    // Zbierz nazwy wszystkich filtrów z widgetów
+    document.querySelectorAll('.slwn-product-filter-widget-form input, .slwn-product-filter-widget-form select')
+        .forEach(function(input) {
+            if (!input.name) return;
+
+            let filterName = input.name;
+
+            // Sprawdź czy to filtr WooCommerce
+            if (filterName.indexOf('pa_') === 0 ||
+                filterName === 'product_cat' ||
+                filterName.indexOf('min_pa_') === 0 ||
+                filterName.indexOf('max_pa_') === 0) {
+
+                // Dla checkboxów usuń [] z nazwy
+                if (filterName.endsWith('[]')) {
+                    filterName = filterName.replace('[]', '');
+                }
+                allFilterNames.add(filterName);
+            }
+        });
+
+    // KROK 4: Dla każdego filtru, sprawdź czy ma wartość, jeśli nie - dodaj pustą wartość
+    let hasAnyFiltersWithValues = false;
+    allFilterNames.forEach(function(filterName) {
+        let hasValue = false;
+        let filterValue = '';
+
+        // Sprawdź checkboxy
+        if (document.querySelector('input[name="' + filterName + '[]"]')) {
+            const checkedBoxes = document.querySelectorAll('input[name="' + filterName + '[]"]:checked');
+            if (checkedBoxes.length > 0) {
+                const values = Array.from(checkedBoxes).map(cb => cb.value).filter(v => v && v.trim() !==
+                    '');
+                if (values.length > 0) {
+                    filterValue = values.join(',');
+                    hasValue = true;
+                    hasAnyFiltersWithValues = true;
+                }
+            }
+        }
+        // Sprawdź radio
+        else if (document.querySelector('input[name="' + filterName + '"][type="radio"]')) {
+            const checkedRadio = document.querySelector('input[name="' + filterName +
+                '"][type="radio"]:checked');
+            if (checkedRadio && checkedRadio.value && checkedRadio.value.trim() !== '') {
+                filterValue = checkedRadio.value;
+                hasValue = true;
+                hasAnyFiltersWithValues = true;
+            }
+        }
+        // Sprawdź select
+        else if (document.querySelector('select[name="' + filterName + '"]')) {
+            const selectElement = document.querySelector('select[name="' + filterName + '"]');
+            if (selectElement && selectElement.value && selectElement.value.trim() !== '') {
+                filterValue = selectElement.value;
+                hasValue = true;
+                hasAnyFiltersWithValues = true;
+            }
+        }
+        // Sprawdź hidden (range sliders)
+        else if (document.querySelector('input[name="' + filterName + '"][type="hidden"]')) {
+            const hiddenElement = document.querySelector('input[name="' + filterName + '"][type="hidden"]');
+            if (hiddenElement && hiddenElement.value && hiddenElement.value.trim() !== '' && !hiddenElement
+                .classList.contains('checkbox-values-holder')) {
+                filterValue = hiddenElement.value;
+                hasValue = true;
+                hasAnyFiltersWithValues = true;
+            }
+        }
+
+        // Dodaj filtr do formularza - tylko jeśli ma wartość
+        if (hasValue && filterValue && filterValue.trim() !== '') {
+            const hiddenInput = document.createElement('input');
+            hiddenInput.type = 'hidden';
+            hiddenInput.name = filterName;
+            hiddenInput.value = filterValue;
+            submitForm.appendChild(hiddenInput);
+        }
+    });
+
+    // KROK 5: Zarządzaj localStorage na podstawie tego czy są filtry
+    if (hasAnyFiltersWithValues) {
+        // Są filtry - zbierz tylko niepuste i zapisz do localStorage
+        const filtersForStorage = {};
+        allFilterNames.forEach(function(filterName) {
+            // Sprawdź checkboxy
+            if (document.querySelector('input[name="' + filterName + '[]"]')) {
+                const checkedBoxes = document.querySelectorAll('input[name="' + filterName +
+                '[]"]:checked');
                 if (checkedBoxes.length > 0) {
-                    const values = Array.from(checkedBoxes).map(cb => cb.value);
-                    hiddenField.value = values.join(',');
-                } else {
-                    hiddenField.value = ''; // Wyczyść jeśli nic nie zaznaczone
-                }
-            });
-            
-            // KROK 2: Stwórz nowy formularz do submitu
-            const submitForm = document.createElement('form');
-            submitForm.method = 'GET';
-            submitForm.action = '<?php echo esc_url(wc_get_page_permalink('shop')); ?>';
-            
-            // KROK 3: Zbierz WSZYSTKIE możliwe filtry (nawet puste) aby wyczyścić URL
-            const allFilterNames = new Set();
-            
-            // Zbierz nazwy wszystkich filtrów z widgetów
-            document.querySelectorAll('.slwn-product-filter-widget-form input, .slwn-product-filter-widget-form select').forEach(function(input) {
-                if (!input.name) return;
-                
-                let filterName = input.name;
-                
-                // Sprawdź czy to filtr WooCommerce
-                if (filterName.indexOf('pa_') === 0 || 
-                    filterName === 'product_cat' || 
-                    filterName.indexOf('min_pa_') === 0 || 
-                    filterName.indexOf('max_pa_') === 0) {
-                    
-                    // Dla checkboxów usuń [] z nazwy
-                    if (filterName.endsWith('[]')) {
-                        filterName = filterName.replace('[]', '');
-                    }
-                    allFilterNames.add(filterName);
-                }
-            });
-            
-            // KROK 4: Dla każdego filtru, sprawdź czy ma wartość, jeśli nie - dodaj pustą wartość
-            allFilterNames.forEach(function(filterName) {
-                let hasValue = false;
-                let filterValue = '';
-                
-                // Sprawdź checkboxy
-                if (document.querySelector('input[name="' + filterName + '[]"]')) {
-                    const checkedBoxes = document.querySelectorAll('input[name="' + filterName + '[]"]:checked');
-                    if (checkedBoxes.length > 0) {
-                        const values = Array.from(checkedBoxes).map(cb => cb.value);
-                        filterValue = values.join(',');
-                        hasValue = true;
+                    const values = Array.from(checkedBoxes).map(cb => cb.value).filter(v => v && v
+                    .trim() !== '');
+                    if (values.length > 0) {
+                        filtersForStorage[filterName] = values.join(',');
                     }
                 }
-                // Sprawdź radio
-                else if (document.querySelector('input[name="' + filterName + '"][type="radio"]')) {
-                    const checkedRadio = document.querySelector('input[name="' + filterName + '"][type="radio"]:checked');
-                    if (checkedRadio && checkedRadio.value) {
-                        filterValue = checkedRadio.value;
-                        hasValue = true;
-                    }
+            }
+            // Sprawdź radio
+            else if (document.querySelector('input[name="' + filterName + '"][type="radio"]')) {
+                const checkedRadio = document.querySelector('input[name="' + filterName +
+                    '"][type="radio"]:checked');
+                if (checkedRadio && checkedRadio.value && checkedRadio.value.trim() !== '') {
+                    filtersForStorage[filterName] = checkedRadio.value;
                 }
-                // Sprawdź select
-                else if (document.querySelector('select[name="' + filterName + '"]')) {
-                    const selectElement = document.querySelector('select[name="' + filterName + '"]');
-                    if (selectElement && selectElement.value) {
-                        filterValue = selectElement.value;
-                        hasValue = true;
-                    }
+            }
+            // Sprawdź select
+            else if (document.querySelector('select[name="' + filterName + '"]')) {
+                const selectElement = document.querySelector('select[name="' + filterName + '"]');
+                if (selectElement && selectElement.value && selectElement.value.trim() !== '') {
+                    filtersForStorage[filterName] = selectElement.value;
                 }
-                // Sprawdź hidden (range sliders)
-                else if (document.querySelector('input[name="' + filterName + '"][type="hidden"]')) {
-                    const hiddenElement = document.querySelector('input[name="' + filterName + '"][type="hidden"]');
-                    if (hiddenElement && hiddenElement.value && !hiddenElement.classList.contains('checkbox-values-holder')) {
-                        filterValue = hiddenElement.value;
-                        hasValue = true;
-                    }
+            }
+            // Sprawdź hidden (range sliders)
+            else if (document.querySelector('input[name="' + filterName + '"][type="hidden"]')) {
+                const hiddenElement = document.querySelector('input[name="' + filterName +
+                    '"][type="hidden"]');
+                if (hiddenElement && hiddenElement.value && hiddenElement.value.trim() !== '' && !
+                    hiddenElement.classList.contains('checkbox-values-holder')) {
+                    filtersForStorage[filterName] = hiddenElement.value;
                 }
-                
-                // Dodaj filtr do formularza (nawet jeśli pusty)
-                const hiddenInput = document.createElement('input');
-                hiddenInput.type = 'hidden';
-                hiddenInput.name = filterName;
-                hiddenInput.value = filterValue;
-                submitForm.appendChild(hiddenInput);
-            });
-            
-            // KROK 5: Dodaj formularz do DOM i wyślij
-            document.body.appendChild(submitForm);
-            submitForm.submit();
-        };
-        
-        window.slwnResetAllFilters = function(resetUrl) {
+            }
+        });
+
+        // Zapisz tylko jeśli są rzeczywiste filtry
+        if (Object.keys(filtersForStorage).length > 0) {
+            localStorage.setItem('product_filters', JSON.stringify(filtersForStorage));
+        } else {
             localStorage.removeItem('product_filters');
-            window.location.href = resetUrl;
-        };
-        </script>
-        <?php
+        }
+    } else {
+        // Brak filtrów - WYCZYŚĆ localStorage kompletnie
+        localStorage.removeItem('product_filters');
+    }
+
+    // KROK 6: Dodaj formularz do DOM i wyślij
+    document.body.appendChild(submitForm);
+    submitForm.submit();
+};
+
+window.slwnResetAllFilters = function(resetUrl) {
+    localStorage.removeItem('product_filters');
+    window.location.href = resetUrl;
+};
+</script>
+<?php
 
         echo $args['after_widget'];
     }
@@ -655,27 +756,35 @@ class SLWN_Product_Filter_Buttons_Widget extends WP_Widget {
         $show_filter = !empty($instance['show_filter']) ? true : false;
         $show_reset = !empty($instance['show_reset']) ? true : false;
         ?>
-        <p>
-            <label for="<?php echo esc_attr($this->get_field_id('title')); ?>"><?php _e('Tytuł:'); ?></label>
-            <input class="widefat" id="<?php echo esc_attr($this->get_field_id('title')); ?>" name="<?php echo esc_attr($this->get_field_name('title')); ?>" type="text" value="<?php echo esc_attr($title); ?>">
-        </p>
-        <p>
-            <input type="checkbox" id="<?php echo esc_attr($this->get_field_id('show_filter')); ?>" name="<?php echo esc_attr($this->get_field_name('show_filter')); ?>" <?php checked($show_filter); ?>>
-            <label for="<?php echo esc_attr($this->get_field_id('show_filter')); ?>">Pokaż przycisk filtruj</label>
-        </p>
-        <p>
-            <label for="<?php echo esc_attr($this->get_field_id('filter_text')); ?>">Tekst przycisku filtruj:</label>
-            <input class="widefat" id="<?php echo esc_attr($this->get_field_id('filter_text')); ?>" name="<?php echo esc_attr($this->get_field_name('filter_text')); ?>" type="text" value="<?php echo esc_attr($filter_text); ?>">
-        </p>
-        <p>
-            <input type="checkbox" id="<?php echo esc_attr($this->get_field_id('show_reset')); ?>" name="<?php echo esc_attr($this->get_field_name('show_reset')); ?>" <?php checked($show_reset); ?>>
-            <label for="<?php echo esc_attr($this->get_field_id('show_reset')); ?>">Pokaż przycisk resetuj</label>
-        </p>   
-        <p>
-            <label for="<?php echo esc_attr($this->get_field_id('reset_text')); ?>">Tekst przycisku resetuj:</label>
-            <input class="widefat" id="<?php echo esc_attr($this->get_field_id('reset_text')); ?>" name="<?php echo esc_attr($this->get_field_name('reset_text')); ?>" type="text" value="<?php echo esc_attr($reset_text); ?>">
-        </p>
-        <?php
+<p>
+    <label for="<?php echo esc_attr($this->get_field_id('title')); ?>"><?php _e('Tytuł:'); ?></label>
+    <input class="widefat" id="<?php echo esc_attr($this->get_field_id('title')); ?>"
+        name="<?php echo esc_attr($this->get_field_name('title')); ?>" type="text"
+        value="<?php echo esc_attr($title); ?>">
+</p>
+<p>
+    <input type="checkbox" id="<?php echo esc_attr($this->get_field_id('show_filter')); ?>"
+        name="<?php echo esc_attr($this->get_field_name('show_filter')); ?>" <?php checked($show_filter); ?>>
+    <label for="<?php echo esc_attr($this->get_field_id('show_filter')); ?>">Pokaż przycisk filtruj</label>
+</p>
+<p>
+    <label for="<?php echo esc_attr($this->get_field_id('filter_text')); ?>">Tekst przycisku filtruj:</label>
+    <input class="widefat" id="<?php echo esc_attr($this->get_field_id('filter_text')); ?>"
+        name="<?php echo esc_attr($this->get_field_name('filter_text')); ?>" type="text"
+        value="<?php echo esc_attr($filter_text); ?>">
+</p>
+<p>
+    <input type="checkbox" id="<?php echo esc_attr($this->get_field_id('show_reset')); ?>"
+        name="<?php echo esc_attr($this->get_field_name('show_reset')); ?>" <?php checked($show_reset); ?>>
+    <label for="<?php echo esc_attr($this->get_field_id('show_reset')); ?>">Pokaż przycisk resetuj</label>
+</p>
+<p>
+    <label for="<?php echo esc_attr($this->get_field_id('reset_text')); ?>">Tekst przycisku resetuj:</label>
+    <input class="widefat" id="<?php echo esc_attr($this->get_field_id('reset_text')); ?>"
+        name="<?php echo esc_attr($this->get_field_name('reset_text')); ?>" type="text"
+        value="<?php echo esc_attr($reset_text); ?>">
+</p>
+<?php
     }
 
     public function update($new_instance, $old_instance) {
@@ -765,13 +874,15 @@ class SLWN_Product_Filter_Categories_Widget extends WP_Widget {
         $placeholder = !empty($instance['placeholder']) ? $instance['placeholder'] : 'Wszystkie kategorie';
         $show_empty = !empty($instance['show_empty']) ? (bool)$instance['show_empty'] : false;
         ?>
-        <p>
-            <label for="<?php echo esc_attr($this->get_field_id('title')); ?>">Tytuł:</label>
-            <input class="widefat" id="<?php echo esc_attr($this->get_field_id('title')); ?>" name="<?php echo esc_attr($this->get_field_name('title')); ?>" type="text" value="<?php echo esc_attr($title); ?>">
-        </p>
-        <p>
-            <label for="<?php echo esc_attr($this->get_field_id('parent_category')); ?>">Kategoria nadrzędna:</label>
-            <?php
+<p>
+    <label for="<?php echo esc_attr($this->get_field_id('title')); ?>">Tytuł:</label>
+    <input class="widefat" id="<?php echo esc_attr($this->get_field_id('title')); ?>"
+        name="<?php echo esc_attr($this->get_field_name('title')); ?>" type="text"
+        value="<?php echo esc_attr($title); ?>">
+</p>
+<p>
+    <label for="<?php echo esc_attr($this->get_field_id('parent_category')); ?>">Kategoria nadrzędna:</label>
+    <?php
             wp_dropdown_categories(array(
                 'taxonomy' => 'product_cat',
                 'name' => $this->get_field_name('parent_category'),
@@ -782,19 +893,24 @@ class SLWN_Product_Filter_Categories_Widget extends WP_Widget {
                 'class' => 'widefat'
             ));
             ?>
-        </p>
-        <p>
-            <label for="<?php echo esc_attr($this->get_field_id('placeholder')); ?>">Tekst placeholder:</label>
-            <input class="widefat" id="<?php echo esc_attr($this->get_field_id('placeholder')); ?>" name="<?php echo esc_attr($this->get_field_name('placeholder')); ?>" type="text" value="<?php echo esc_attr($placeholder); ?>">
-        </p>
-        <p class="show-empty-field">
-            <input type="checkbox" id="<?php echo esc_attr($this->get_field_id('show_empty')); ?>" name="<?php echo esc_attr($this->get_field_name('show_empty')); ?>" value="1" <?php checked(1, $show_empty); ?> />
-            <label for="<?php echo esc_attr($this->get_field_id('show_empty')); ?>">
-                📊 Pokaż kategorie bez produktów (w tym kategorie z 0 produktów)
-            </label>
-            <br><small style="color: #666;">Domyślnie pokazywane są tylko kategorie z produktami. Zaznacz aby pokazać wszystkie kategorie.</small>
-        </p>
-        <?php
+</p>
+<p>
+    <label for="<?php echo esc_attr($this->get_field_id('placeholder')); ?>">Tekst placeholder:</label>
+    <input class="widefat" id="<?php echo esc_attr($this->get_field_id('placeholder')); ?>"
+        name="<?php echo esc_attr($this->get_field_name('placeholder')); ?>" type="text"
+        value="<?php echo esc_attr($placeholder); ?>">
+</p>
+<p class="show-empty-field">
+    <input type="checkbox" id="<?php echo esc_attr($this->get_field_id('show_empty')); ?>"
+        name="<?php echo esc_attr($this->get_field_name('show_empty')); ?>" value="1"
+        <?php checked(1, $show_empty); ?> />
+    <label for="<?php echo esc_attr($this->get_field_id('show_empty')); ?>">
+        📊 Pokaż kategorie bez produktów (w tym kategorie z 0 produktów)
+    </label>
+    <br><small style="color: #666;">Domyślnie pokazywane są tylko kategorie z produktami. Zaznacz aby pokazać wszystkie
+        kategorie.</small>
+</p>
+<?php
     }
 
     public function update($new_instance, $old_instance) {
@@ -894,15 +1010,19 @@ class SLWN_Product_Filter_Reset_Widget extends WP_Widget {
         $title = !empty($instance['title']) ? $instance['title'] : '';
         $reset_text = !empty($instance['reset_text']) ? $instance['reset_text'] : 'Resetuj filtry';
         ?>
-        <p>
-            <label for="<?php echo esc_attr($this->get_field_id('title')); ?>">Tytuł:</label>
-            <input class="widefat" id="<?php echo esc_attr($this->get_field_id('title')); ?>" name="<?php echo esc_attr($this->get_field_name('title')); ?>" type="text" value="<?php echo esc_attr($title); ?>">
-        </p>
-        <p>
-            <label for="<?php echo esc_attr($this->get_field_id('reset_text')); ?>">Tekst przycisku:</label>
-            <input class="widefat" id="<?php echo esc_attr($this->get_field_id('reset_text')); ?>" name="<?php echo esc_attr($this->get_field_name('reset_text')); ?>" type="text" value="<?php echo esc_attr($reset_text); ?>">
-        </p>
-        <?php
+<p>
+    <label for="<?php echo esc_attr($this->get_field_id('title')); ?>">Tytuł:</label>
+    <input class="widefat" id="<?php echo esc_attr($this->get_field_id('title')); ?>"
+        name="<?php echo esc_attr($this->get_field_name('title')); ?>" type="text"
+        value="<?php echo esc_attr($title); ?>">
+</p>
+<p>
+    <label for="<?php echo esc_attr($this->get_field_id('reset_text')); ?>">Tekst przycisku:</label>
+    <input class="widefat" id="<?php echo esc_attr($this->get_field_id('reset_text')); ?>"
+        name="<?php echo esc_attr($this->get_field_name('reset_text')); ?>" type="text"
+        value="<?php echo esc_attr($reset_text); ?>">
+</p>
+<?php
     }
 
     public function update($new_instance, $old_instance) {
@@ -954,15 +1074,19 @@ class SLWN_Product_Filter_Submit_Widget extends WP_Widget {
         $title = !empty($instance['title']) ? $instance['title'] : '';
         $submit_text = !empty($instance['submit_text']) ? $instance['submit_text'] : 'Filtruj produkty';
         ?>
-        <p>
-            <label for="<?php echo esc_attr($this->get_field_id('title')); ?>">Tytuł:</label>
-            <input class="widefat" id="<?php echo esc_attr($this->get_field_id('title')); ?>" name="<?php echo esc_attr($this->get_field_name('title')); ?>" type="text" value="<?php echo esc_attr($title); ?>">
-        </p>
-        <p>
-            <label for="<?php echo esc_attr($this->get_field_id('submit_text')); ?>">Tekst przycisku:</label>
-            <input class="widefat" id="<?php echo esc_attr($this->get_field_id('submit_text')); ?>" name="<?php echo esc_attr($this->get_field_name('submit_text')); ?>" type="text" value="<?php echo esc_attr($submit_text); ?>">
-        </p>
-        <?php
+<p>
+    <label for="<?php echo esc_attr($this->get_field_id('title')); ?>">Tytuł:</label>
+    <input class="widefat" id="<?php echo esc_attr($this->get_field_id('title')); ?>"
+        name="<?php echo esc_attr($this->get_field_name('title')); ?>" type="text"
+        value="<?php echo esc_attr($title); ?>">
+</p>
+<p>
+    <label for="<?php echo esc_attr($this->get_field_id('submit_text')); ?>">Tekst przycisku:</label>
+    <input class="widefat" id="<?php echo esc_attr($this->get_field_id('submit_text')); ?>"
+        name="<?php echo esc_attr($this->get_field_name('submit_text')); ?>" type="text"
+        value="<?php echo esc_attr($submit_text); ?>">
+</p>
+<?php
     }
 
     public function update($new_instance, $old_instance) {
