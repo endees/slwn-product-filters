@@ -3,7 +3,70 @@
  */
 
 .slwn-product-filters-admin {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+        sans-serif;
+}
+
+/* Widget admin styles */
+.slwn-product-filter-widget .attribute-field,
+.slwn-product-filter-widget .category-field {
+    background: #f8f9fa;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 10px;
+    margin: 10px 0;
+    transition: all 0.3s ease;
+}
+
+.slwn-product-filter-widget .range-fields {
+    background: #fff3cd;
+    border: 2px solid #ffc107;
+    border-radius: 6px;
+    padding: 15px;
+    margin: 15px 0;
+    transition: all 0.3s ease;
+}
+
+.slwn-product-filter-widget .range-fields h4 {
+    margin: 0 0 10px 0;
+    color: #856404;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.slwn-product-filter-widget .attribute-field[style*="display: none"],
+.slwn-product-filter-widget .category-field[style*="display: none"],
+.slwn-product-filter-widget .range-fields[style*="display: none"] {
+    opacity: 0;
+    height: 0;
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+    border: none;
+}
+
+.slwn-product-filter-widget .range-fields p {
+    margin-bottom: 12px;
+}
+
+.slwn-product-filter-widget .range-fields p:last-child {
+    margin-bottom: 0;
+}
+
+/* Styles for field labels */
+.slwn-product-filter-widget .attribute-field::before {
+    content: "🎯 ";
+    font-weight: bold;
+}
+
+.slwn-product-filter-widget .category-field::before {
+    content: "📁 ";
+    font-weight: bold;
+}
+
+.slwn-product-filters-admin {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+        sans-serif;
 }
 
 .slwn-product-filters-admin .form-table th {
@@ -56,8 +119,12 @@
 }
 
 @keyframes slwn-product-filters-spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
 }
 
 /* Responsive */
@@ -68,7 +135,7 @@
         width: 100%;
         padding: 10px 0;
     }
-    
+
     .slwn-product-filters-admin .form-table th {
         border-bottom: 0;
         padding-bottom: 0;

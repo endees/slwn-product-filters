@@ -63,25 +63,25 @@ Wtyczka dodaje 2 nowe widgety:
 ```css
 .slwn-product-filters-wrapper    /* Główny kontener */
 .slwn-product-filters-form       /* Formularz filtrów */
-.ntc-product-filter              /* Pojedynczy filtr */
+.slwn-product-filter              /* Pojedynczy filtr */
 ```
 
 ### Typy filtrów
 ```css
-.ntc-product-filter--attribute   /* Filtr atrybutu */
-.ntc-product-filter--category    /* Filtr kategorii */
-.ntc-product-filter--range       /* Filtr zakresu */
-.ntc-product-filter--checkbox    /* Filtr checkboxów */
+.slwn-product-filter--attribute   /* Filtr atrybutu */
+.slwn-product-filter--category    /* Filtr kategorii */
+.slwn-product-filter--range       /* Filtr zakresu */
+.slwn-product-filter--checkbox    /* Filtr checkboxów */
 ```
 
 ### Elementy interfejsu
 ```css
-.ntc-product-filter__select      /* Lista rozwijana */
-.ntc-product-filter__buttons     /* Przyciski radio */
-.ntc-product-filter__checkboxes  /* Kontener checkboxów */
-.ntc-filter-option--checkbox     /* Opcja checkbox */
-.ntc-filters-buttons__filter     /* Przycisk "Filtruj" */
-.ntc-filters-buttons__reset      /* Przycisk "Resetuj" */
+.slwn-product-filter__select      /* Lista rozwijana */
+.slwn-product-filter__buttons     /* Przyciski radio */
+.slwn-product-filter__checkboxes  /* Kontener checkboxów */
+.slwn-filter-option--checkbox     /* Opcja checkbox */
+.slwn-filters-buttons__filter     /* Przycisk "Filtruj" */
+.slwn-filters-buttons__reset      /* Przycisk "Resetuj" */
 ```
 
 ## 🔧 Jak działa
@@ -141,17 +141,23 @@ Wtyczka obsługuje zaawansowane checkboxy umożliwiające zaznaczenie wielu wart
 - ✅ **Usunięto automatyczne submitowanie** - filtry stosują się dopiero po kliknięciu "Filtruj"
 - ✅ **Wyczyszczono kod z logów debugowych** - kod gotowy do produkcji
 - ✅ **Poprawiona synchronizacja URL ↔ Formularz** - pełna obsługa wszystkich typów filtrów
+- ✅ **Zmieniono klasy CSS z `ntc-` na `slwn-`** - ujednolicenie nazewnictwa
+- ✅ **Naprawiono dynamiczne przełączanie pól w adminie** - pola widgetów przełączają się bez przeładowywania
 
 **🔧 Zmiany techniczne:**
 - Przepisano funkcję `slwnSubmitAllFilters()` - zawsze wysyła wszystkie filtry, nawet puste
 - Usunięto wszystkie `console.log()` z kodu produkcyjnego
 - Uproszczono logikę obsługi localStorage i URL
 - Poprawiono obsługę range sliderów z tax_query
+- Zmieniono wszystkie klasy CSS z prefiksu `ntc-` na `slwn-`
+- Dodano centralny system JavaScript w adminie dla obsługi widgetów
+- Ulepszona obsługa enqueue'owania skryptów w panelu administracyjnym
 
 **🗑️ Oczyszczanie:**
 - Usunięto wszystkie pliki testowe HTML
 - Usunięto tymczasowe pliki markdown z dokumentacją developera
 - Usunięto niepotrzebne logi debugowe z PHP
+- Usunięto inline JavaScript z widgetów na rzecz centralnego admin.js
 
 ### v1.1.0 - Dodanie checkboxów wielokrotnego wyboru
 **🆕 Nowe funkcjonalności:**
