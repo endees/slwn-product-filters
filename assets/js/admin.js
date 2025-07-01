@@ -163,8 +163,6 @@
          * Initialize widget controls
          */
         initWidgetControls: function () {
-            console.log("SLWN Admin: Initializing widget controls");
-
             // Initialize existing widgets immediately
             this.initAllWidgets();
 
@@ -175,12 +173,10 @@
 
             // Listen for widget events
             $(document).on("widget-added", function (event, widget) {
-                console.log("SLWN Admin: Widget added", widget);
                 SLWNProductFiltersAdmin.initAllWidgets();
             });
 
             $(document).on("widget-updated", function (event, widget) {
-                console.log("SLWN Admin: Widget updated", widget);
                 SLWNProductFiltersAdmin.initAllWidgets();
             });
 
@@ -219,12 +215,6 @@
                     $filterTypeSelect.length &&
                     $displayTypeSelect.length
                 ) {
-                    console.log("SLWN Admin: Found product filter widget", {
-                        widget: $widget,
-                        widgetId: widgetId,
-                        filterSelect: $filterTypeSelect.attr("id"),
-                        displaySelect: $displayTypeSelect.attr("id"),
-                    });
                     self.initSingleWidget(
                         $widget,
                         $filterTypeSelect,
@@ -244,23 +234,11 @@
         ) {
             var self = this;
 
-            console.log("SLWN Admin: Initializing single widget", {
-                widget: $widget,
-                filterTypeSelect: $filterTypeSelect,
-                displayTypeSelect: $displayTypeSelect,
-            });
-
             // Toggle filter type fields
             function toggleFilterTypeFields() {
                 var filterType = $filterTypeSelect.val();
                 var $attributeField = $widget.find(".attribute-field");
                 var $categoryField = $widget.find(".category-field");
-
-                console.log("SLWN Admin: Toggling filter type fields", {
-                    filterType: filterType,
-                    attributeField: $attributeField.length,
-                    categoryField: $categoryField.length,
-                });
 
                 if (filterType === "attribute") {
                     $attributeField.show();
@@ -275,12 +253,6 @@
             function toggleDisplayTypeFields() {
                 var displayType = $displayTypeSelect.val();
                 var $rangeFields = $widget.find(".range-fields");
-
-                console.log("SLWN Admin: Toggling display type fields", {
-                    displayType: displayType,
-                    rangeFields: $rangeFields.length,
-                });
-
                 if (displayType === "range") {
                     $rangeFields.show();
                 } else {
@@ -294,26 +266,16 @@
 
             // Bind change events
             $filterTypeSelect.on("change.slwn-admin", function () {
-                console.log(
-                    "SLWN Admin: Filter type changed to:",
-                    $(this).val()
-                );
                 toggleFilterTypeFields();
             });
 
             $displayTypeSelect.on("change.slwn-admin", function () {
-                console.log(
-                    "SLWN Admin: Display type changed to:",
-                    $(this).val()
-                );
                 toggleDisplayTypeFields();
             });
 
             // Initialize on load
             toggleFilterTypeFields();
             toggleDisplayTypeFields();
-
-            console.log("SLWN Admin: Widget initialization complete");
         },
     };
 })(jQuery);
