@@ -38,6 +38,7 @@ class SLWN_Product_Filters_Admin {
     private function init_hooks() {
         add_action('admin_init', array($this, 'admin_init'));
         add_action('admin_notices', array($this, 'admin_notices'));
+        add_action('admin_enqueue_scripts', array($this, 'admin_enqueue_scripts'));
     }
     
     /**
@@ -88,6 +89,35 @@ class SLWN_Product_Filters_Admin {
      */
     public function admin_notices() {
         // Display admin notices if needed
+    }
+    
+    /**
+     * Enqueue admin scripts and styles
+     */
+    public function admin_enqueue_scripts($hook) {
+        // Load scripts on widgets page and customizer
+        if ('widgets.php' === $hook || 'customize.php' === $hook || strpos($hook, 'slwn-product-filters') !== false) {
+            wp_enqueue_script(
+                'slwn-product-filters-admin',
+                SLWN_PRODUCT_FILTERS_URL . 'assets/js/admin.js',
+                array('jquery'),
+                SLWN_PRODUCT_FILTERS_VERSION,
+                true
+            );
+            
+            wp_enqueue_style(
+                'slwn-product-filters-admin',
+                SLWN_PRODUCT_FILTERS_URL . 'assets/css/admin.css',
+                array(),
+                SLWN_PRODUCT_FILTERS_VERSION
+            );
+            
+            // Localize script for AJAX
+            wp_localize_script('slwn-product-filters-admin', 'slwn_admin_ajax', array(
+                'ajaxurl' => admin_url('admin-ajax.php'),
+                'nonce' => wp_create_nonce('slwn_admin_nonce'),
+            ));
+        }
     }
     
     /**

@@ -94,13 +94,13 @@ class SLWN_Product_Filter_Attributes_Widget extends WP_Widget {
         $current_max = !empty($max_value) ? $max_value : $max;
         $slider_id = 'range-slider-' . $attribute . '-' . mt_rand(1000, 9999);
         ?>
-        <div class="ntc-product-filter ntc-product-filter--range">
-            <div class="ntc-range-slider-container">
-                <div class="ntc-range-values">
+        <div class="slwn-product-filter slwn-product-filter--range">
+            <div class="slwn-range-slider-container">
+                <div class="slwn-range-values">
                     <span class="min-value"><?php echo esc_html($min_label); ?>: <span class="value"><?php echo esc_html($current_min . $unit); ?></span></span>
                     <span class="max-value"><?php echo esc_html($max_label); ?>: <span class="value"><?php echo esc_html($current_max . $unit); ?></span></span>
                 </div>
-                <div id="<?php echo esc_attr($slider_id); ?>" class="ntc-range-slider" 
+                <div id="<?php echo esc_attr($slider_id); ?>" class="slwn-range-slider" 
                      data-min="<?php echo esc_attr($min); ?>" 
                      data-max="<?php echo esc_attr($max); ?>"
                      data-current-min="<?php echo esc_attr($current_min); ?>"
@@ -133,9 +133,9 @@ class SLWN_Product_Filter_Attributes_Widget extends WP_Widget {
             $current_values = array_map('trim', $current_values);
         }
         ?>
-        <div class="ntc-product-filter ntc-product-filter--<?php echo esc_attr($attribute); ?> ntc-product-filter--<?php echo esc_attr($display_type); ?>">
+        <div class="slwn-product-filter slwn-product-filter--<?php echo esc_attr($attribute); ?> slwn-product-filter--<?php echo esc_attr($display_type); ?>">
             <?php if ($display_type === 'select') : ?>
-                <select name="filter_<?php echo esc_attr($attribute); ?>" class="ntc-product-filter__select filter-control">
+                <select name="filter_<?php echo esc_attr($attribute); ?>" class="slwn-product-filter__select filter-control">
                     <option value=""><?php echo esc_html($placeholder); ?></option>
                     <?php foreach ($terms as $term) : ?>
                         <option value="<?php echo esc_attr($term->slug); ?>" <?php selected($current_filter, $term->slug); ?>>
@@ -144,27 +144,27 @@ class SLWN_Product_Filter_Attributes_Widget extends WP_Widget {
                     <?php endforeach; ?>
                 </select>
             <?php elseif ($display_type === 'checkbox') : ?>
-                <div class="ntc-product-filter__checkboxes">
+                <div class="slwn-product-filter__checkboxes">
                     <?php foreach ($terms as $term) : ?>
-                        <label class="ntc-filter-option ntc-filter-option--checkbox">
+                        <label class="slwn-filter-option slwn-filter-option--checkbox">
                             <input type="checkbox" name="filter_<?php echo esc_attr($attribute); ?>[]" value="<?php echo esc_attr($term->slug); ?>" 
                                    <?php checked(in_array($term->slug, $current_values), true); ?> 
-                                   class="ntc-product-filter__checkbox filter-control"
+                                   class="slwn-product-filter__checkbox filter-control"
                                    data-attribute="<?php echo esc_attr($attribute); ?>">
-                            <span class="ntc-filter-checkbox-label"><?php echo esc_html($term->name); ?> (<?php echo $term->count; ?>)</span>
+                            <span class="slwn-filter-checkbox-label"><?php echo esc_html($term->name); ?> (<?php echo $term->count; ?>)</span>
                         </label>
                     <?php endforeach; ?>
                     <!-- Hidden field do przechowywania wartości dla URL -->
                     <input type="hidden" name="filter_<?php echo esc_attr($attribute); ?>" value="<?php echo esc_attr($current_filter); ?>" class="checkbox-values-holder">
                 </div>
             <?php else : // buttons ?>
-                <div class="ntc-product-filter__buttons">
+                <div class="slwn-product-filter__buttons">
                     <?php foreach ($terms as $term) : ?>
-                        <label class="ntc-filter-option">
+                        <label class="slwn-filter-option">
                             <input type="radio" name="filter_<?php echo esc_attr($attribute); ?>" value="<?php echo esc_attr($term->slug); ?>" 
                                    <?php checked($current_filter, $term->slug); ?> 
-                                   class="ntc-product-filter__radio">
-                            <span class="ntc-filter-button"><?php echo esc_html($term->name); ?> (<?php echo $term->count; ?>)</span>
+                                   class="slwn-product-filter__radio">
+                            <span class="slwn-filter-button"><?php echo esc_html($term->name); ?> (<?php echo $term->count; ?>)</span>
                         </label>
                     <?php endforeach; ?>
                 </div>
@@ -196,9 +196,9 @@ class SLWN_Product_Filter_Attributes_Widget extends WP_Widget {
             $current_cat_values = array_map('trim', $current_cat_values);
         }
         ?>
-        <div class="ntc-product-filter ntc-product-filter--category ntc-product-filter--<?php echo esc_attr($display_type); ?>">
+        <div class="slwn-product-filter slwn-product-filter--category slwn-product-filter--<?php echo esc_attr($display_type); ?>">
             <?php if ($display_type === 'select') : ?>
-                <select name="product_cat" class="ntc-product-filter__select" data-shop-url="<?php echo esc_url(wc_get_page_permalink('shop')); ?>">
+                <select name="product_cat" class="slwn-product-filter__select" data-shop-url="<?php echo esc_url(wc_get_page_permalink('shop')); ?>">
                     <option value="" data-url="<?php echo esc_url(wc_get_page_permalink('shop')); ?>"><?php echo esc_html($placeholder); ?></option>
                     <?php foreach ($categories as $category) : ?>
                         <option value="<?php echo esc_attr($category->slug); ?>" 
@@ -209,28 +209,28 @@ class SLWN_Product_Filter_Attributes_Widget extends WP_Widget {
                     <?php endforeach; ?>
                 </select>
             <?php elseif ($display_type === 'checkbox') : ?>
-                <div class="ntc-product-filter__checkboxes">
+                <div class="slwn-product-filter__checkboxes">
                     <?php foreach ($categories as $category) : ?>
-                        <label class="ntc-filter-option ntc-filter-option--checkbox">
+                        <label class="slwn-filter-option slwn-filter-option--checkbox">
                             <input type="checkbox" name="product_cat[]" value="<?php echo esc_attr($category->slug); ?>"
                                    data-url="<?php echo esc_url(get_term_link($category)); ?>"
                                    <?php checked(in_array($category->slug, $current_cat_values) || $current_cat_id === $category->term_id, true); ?>
-                                   class="ntc-product-filter__checkbox filter-control">
-                            <span class="ntc-filter-checkbox-label"><?php echo esc_html($category->name); ?> (<?php echo $category->count; ?>)</span>
+                                   class="slwn-product-filter__checkbox filter-control">
+                            <span class="slwn-filter-checkbox-label"><?php echo esc_html($category->name); ?> (<?php echo $category->count; ?>)</span>
                         </label>
                     <?php endforeach; ?>
                     <!-- Hidden field do przechowywania wartości dla URL -->
                     <input type="hidden" name="product_cat" value="<?php echo esc_attr($current_cat_filter ?: $current_cat_slug); ?>" class="checkbox-values-holder">
                 </div>
             <?php else : // buttons ?>
-                <div class="ntc-product-filter__buttons">
+                <div class="slwn-product-filter__buttons">
                     <?php foreach ($categories as $category) : ?>
-                        <label class="ntc-filter-option">
+                        <label class="slwn-filter-option">
                             <input type="radio" name="product_cat" value="<?php echo esc_attr($category->slug); ?>"
                                    data-url="<?php echo esc_url(get_term_link($category)); ?>"
                                    <?php checked($current_cat_id, $category->term_id); ?>
-                                   class="ntc-product-filter__radio">
-                            <span class="ntc-filter-button"><?php echo esc_html($category->name); ?> (<?php echo $category->count; ?>)</span>
+                                   class="slwn-product-filter__radio">
+                            <span class="slwn-filter-button"><?php echo esc_html($category->name); ?> (<?php echo $category->count; ?>)</span>
                         </label>
                     <?php endforeach; ?>
                 </div>
@@ -308,8 +308,8 @@ class SLWN_Product_Filter_Attributes_Widget extends WP_Widget {
                         $minInput.trigger('change');
                         $maxInput.trigger('change');
                         
-                        $('#<?php echo esc_js($slider_id); ?>').closest('.ntc-range-slider-container').find('.min-value .value').text(minValue + '<?php echo esc_js($unit); ?>');
-                        $('#<?php echo esc_js($slider_id); ?>').closest('.ntc-range-slider-container').find('.max-value .value').text(maxValue + '<?php echo esc_js($unit); ?>');
+                        $('#<?php echo esc_js($slider_id); ?>').closest('.slwn-range-slider-container').find('.min-value .value').text(minValue + '<?php echo esc_js($unit); ?>');
+                        $('#<?php echo esc_js($slider_id); ?>').closest('.slwn-range-slider-container').find('.max-value .value').text(maxValue + '<?php echo esc_js($unit); ?>');
                         
                         // Zapisz w localStorage ale NIE submituj automatycznie
                         try {
@@ -401,6 +401,7 @@ class SLWN_Product_Filter_Attributes_Widget extends WP_Widget {
             <input class="widefat" id="<?php echo esc_attr($this->get_field_id('placeholder')); ?>" name="<?php echo esc_attr($this->get_field_name('placeholder')); ?>" type="text" value="<?php echo esc_attr($placeholder); ?>">
         </p>
         <div class="range-fields" <?php echo $display_type !== 'range' ? 'style="display:none;"' : ''; ?>>
+            <h4>⚙️ Ustawienia suwaka zakresu</h4>
             <p>
                 <label for="<?php echo esc_attr($this->get_field_id('min_label')); ?>">Etykieta minimum:</label>
                 <input class="widefat" id="<?php echo esc_attr($this->get_field_id('min_label')); ?>" name="<?php echo esc_attr($this->get_field_name('min_label')); ?>" type="text" value="<?php echo esc_attr($min_label); ?>">
@@ -414,61 +415,6 @@ class SLWN_Product_Filter_Attributes_Widget extends WP_Widget {
                 <input class="widefat" id="<?php echo esc_attr($this->get_field_id('unit')); ?>" name="<?php echo esc_attr($this->get_field_name('unit')); ?>" type="text" value="<?php echo esc_attr($unit); ?>" placeholder="np. kg, m, szt">
             </p>
         </div>
-        <script>
-        (function($) {
-            // Unikalny ID dla tego widgetu
-            var widgetId = '<?php echo $this->get_field_id('filter_type'); ?>';
-            var $currentWidget = $('#' + widgetId).closest('.widget-inside');
-            
-            function initWidgetControls() {
-                // Funkcja do przełączania pól typu filtra
-                function toggleFilterTypeFields() {
-                    var filterType = $currentWidget.find('select[id$="filter_type"]').val();
-                    
-                    if (filterType === 'attribute') {
-                        $currentWidget.find('.attribute-field').show();
-                        $currentWidget.find('.category-field').hide();
-                    } else {
-                        $currentWidget.find('.attribute-field').hide();
-                        $currentWidget.find('.category-field').show();
-                    }
-                }
-
-                // Funkcja do przełączania pól typu wyświetlania
-                function toggleDisplayTypeFields() {
-                    var displayType = $currentWidget.find('select[id$="display_type"]').val();
-                    
-                    if (displayType === 'range') {
-                        $currentWidget.find('.range-fields').show();
-                    } else {
-                        $currentWidget.find('.range-fields').hide();
-                    }
-                }
-
-                // Inicjalizacja przy ładowaniu
-                toggleFilterTypeFields();
-                toggleDisplayTypeFields();
-
-                // Obsługa zmiany typu filtra
-                $currentWidget.find('select[id$="filter_type"]').off('change.slwn').on('change.slwn', toggleFilterTypeFields);
-
-                // Obsługa zmiany typu wyświetlania  
-                $currentWidget.find('select[id$="display_type"]').off('change.slwn').on('change.slwn', toggleDisplayTypeFields);
-            }
-
-            // Uruchom natychmiast
-            initWidgetControls();
-            
-            // Uruchom po aktualizacji widgetu
-            $(document).on('widget-updated widget-added', function(e, widget) {
-                if (widget.find('#' + widgetId).length > 0) {
-                    // Aktualizuj referencję do widgetu
-                    $currentWidget = widget;
-                    initWidgetControls();
-                }
-            });
-        })(jQuery);
-        </script>
         <?php
     }
 

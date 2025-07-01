@@ -196,7 +196,7 @@
             });
             
             // Obsługa przycisków kategorii
-            $('.ntc-product-filter--category .ntc-product-filter__radio').on('change', function() {
+            $('.slwn-product-filter--category .slwn-product-filter__radio').on('change', function() {
                 const $radio = $(this);
                 const url = $radio.data('url');
                 
@@ -438,7 +438,7 @@
                             
                             if (minValue !== undefined && maxValue !== undefined) {
                                 // Znajdź odpowiedni slider i ustaw jego wartości
-                                $('.ntc-range-slider').each(function() {
+                                $('.slwn-range-slider').each(function() {
                                     const $slider = $(this);
                                     const sliderId = $slider.attr('id');
                                     
@@ -490,7 +490,7 @@
          * Obsługa przycisku reset filtrów
          */
         function initResetFiltersButton() {
-            $('.ntc-filters-buttons__reset, .wc-filter-reset').on('click', function(e) {
+            $('.slwn-filters-buttons__reset, .wc-filter-reset').on('click', function(e) {
                 // Wyczyść localStorage przed przekierowaniem
                 localStorage.removeItem('product_filters');
                 

@@ -272,7 +272,7 @@
     background: #b32d2e;
 }
 
-/* Style dla nowych widgetów NTC przeniesionych z motywu */
+/* Style dla nowych widgetów SLWN przeniesionych z motywu */
 
 /* Główny kontener filtrów */
 .slwn-product-filters-wrapper {
@@ -293,12 +293,12 @@
     width: 100%;
 }
 
-/* Style dla widgetów filtrów NTC */
-.ntc-product-filter {
+/* Style dla widgetów filtrów SLWN */
+.slwn-product-filter {
     margin-bottom: 15px;
 }
 
-.ntc-product-filter__select {
+.slwn-product-filter__select {
     min-width: 150px;
     padding: 8px 12px;
     border: 1px solid #ddd;
@@ -307,32 +307,32 @@
     font-size: 14px;
 }
 
-.ntc-product-filter__select:focus {
+.slwn-product-filter__select:focus {
     outline: none;
     border-color: #0073aa;
     box-shadow: 0 0 0 1px #0073aa;
 }
 
 /* Style dla przycisków filtrów */
-.ntc-product-filter--buttons .ntc-product-filter__buttons {
+.slwn-product-filter--buttons .slwn-product-filter__buttons {
     display: flex;
     flex-wrap: wrap;
     gap: 8px;
 }
 
-.ntc-filter-option {
+.slwn-filter-option {
     position: relative;
     cursor: pointer;
 }
 
-.ntc-filter-option input[type="radio"] {
+.slwn-filter-option input[type="radio"] {
     position: absolute;
     opacity: 0;
     width: 0;
     height: 0;
 }
 
-.ntc-filter-button {
+.slwn-filter-button {
     display: inline-block;
     padding: 8px 15px;
     background: #f8f9fa;
@@ -345,26 +345,26 @@
     cursor: pointer;
 }
 
-.ntc-filter-button:hover {
+.slwn-filter-button:hover {
     background: #e9ecef;
     border-color: #adb5bd;
 }
 
-.ntc-filter-option input[type="radio"]:checked + .ntc-filter-button {
+.slwn-filter-option input[type="radio"]:checked + .slwn-filter-button {
     background: #007cba;
     border-color: #007cba;
     color: white;
 }
 
 /* Style dla suwaków zakresu */
-.ntc-product-filter--range .ntc-range-slider-container {
+.slwn-product-filter--range .slwn-range-slider-container {
     padding: 15px;
     background: #f8f9fa;
     border: 1px solid #dee2e6;
     border-radius: 4px;
 }
 
-.ntc-range-values {
+.slwn-range-values {
     display: flex;
     justify-content: space-between;
     margin-bottom: 10px;
@@ -372,7 +372,7 @@
     color: #495057;
 }
 
-.ntc-range-slider {
+.slwn-range-slider {
     height: 6px;
     background: #dee2e6;
     border-radius: 3px;
@@ -380,14 +380,14 @@
 }
 
 /* Style dla przycisków akcji */
-.ntc-filters-buttons {
+.slwn-filters-buttons {
     display: flex;
     gap: 10px;
     margin-top: 15px;
 }
 
-.ntc-filters-buttons__filter,
-.ntc-filters-buttons__reset {
+.slwn-filters-buttons__filter,
+.slwn-filters-buttons__reset {
     padding: 10px 20px;
     border: none;
     border-radius: 4px;
@@ -398,35 +398,35 @@
     transition: all 0.2s ease;
 }
 
-.ntc-filters-buttons__filter {
+.slwn-filters-buttons__filter {
     background: #007cba;
     color: white;
 }
 
-.ntc-filters-buttons__filter:hover {
+.slwn-filters-buttons__filter:hover {
     background: #005a87;
 }
 
-.ntc-filters-buttons__reset {
+.slwn-filters-buttons__reset {
     background: #6c757d;
     color: white;
 }
 
-.ntc-filters-buttons__reset:hover {
+.slwn-filters-buttons__reset:hover {
     background: #545b62;
     color: white;
     text-decoration: none;
 }
 
 /* Checkbox filters styling */
-.ntc-product-filter--checkbox .ntc-product-filter__checkboxes {
+.slwn-product-filter--checkbox .slwn-product-filter__checkboxes {
     display: flex;
     flex-direction: column;
     gap: 8px;
     margin-top: 10px;
 }
 
-.ntc-filter-option--checkbox {
+.slwn-filter-option--checkbox {
     display: flex;
     align-items: center;
     cursor: pointer;
@@ -434,13 +434,13 @@
     transition: background-color 0.2s ease;
 }
 
-.ntc-filter-option--checkbox:hover {
+.slwn-filter-option--checkbox:hover {
     background-color: rgba(0, 115, 170, 0.05);
     border-radius: 4px;
     padding: 6px 8px;
 }
 
-.ntc-product-filter__checkbox {
+.slwn-product-filter__checkbox {
     margin-right: 8px;
     width: 16px;
     height: 16px;
@@ -448,7 +448,7 @@
     accent-color: #0073aa;
 }
 
-.ntc-filter-checkbox-label {
+.slwn-filter-checkbox-label {
     font-size: 14px;
     color: #333;
     cursor: pointer;
@@ -456,40 +456,40 @@
     user-select: none;
 }
 
-.ntc-filter-option--checkbox:hover .ntc-filter-checkbox-label {
+.slwn-filter-option--checkbox:hover .slwn-filter-checkbox-label {
     color: #0073aa;
 }
 
-.ntc-product-filter__checkbox:checked + .ntc-filter-checkbox-label {
+.slwn-product-filter__checkbox:checked + .slwn-filter-checkbox-label {
     font-weight: 600;
     color: #0073aa;
 }
 
 /* Responsive design for checkboxes */
 @media (max-width: 768px) {
-    .ntc-product-filter--checkbox .ntc-product-filter__checkboxes {
+    .slwn-product-filter--checkbox .slwn-product-filter__checkboxes {
         gap: 6px;
     }
     
-    .ntc-filter-option--checkbox {
+    .slwn-filter-option--checkbox {
         padding: 4px 0;
     }
     
-    .ntc-filter-option--checkbox:hover {
+    .slwn-filter-option--checkbox:hover {
         padding: 4px 8px;
     }
     
-    .ntc-filter-checkbox-label {
+    .slwn-filter-checkbox-label {
         font-size: 13px;
     }
 }
 
 /* Compatibility with existing button and select styles */
-.ntc-product-filter--checkbox {
+.slwn-product-filter--checkbox {
     margin-bottom: 15px;
 }
 
-.ntc-product-filter--checkbox .ntc-product-filter__checkboxes {
+.slwn-product-filter--checkbox .slwn-product-filter__checkboxes {
     max-height: 200px;
     overflow-y: auto;
     border: 1px solid #ddd;
@@ -498,21 +498,21 @@
     background: #fff;
 }
 
-.ntc-product-filter--checkbox .ntc-product-filter__checkboxes::-webkit-scrollbar {
+.slwn-product-filter--checkbox .slwn-product-filter__checkboxes::-webkit-scrollbar {
     width: 6px;
 }
 
-.ntc-product-filter--checkbox .ntc-product-filter__checkboxes::-webkit-scrollbar-track {
+.slwn-product-filter--checkbox .slwn-product-filter__checkboxes::-webkit-scrollbar-track {
     background: #f1f1f1;
     border-radius: 3px;
 }
 
-.ntc-product-filter--checkbox .ntc-product-filter__checkboxes::-webkit-scrollbar-thumb {
+.slwn-product-filter--checkbox .slwn-product-filter__checkboxes::-webkit-scrollbar-thumb {
     background: #c1c1c1;
     border-radius: 3px;
 }
 
-.ntc-product-filter--checkbox .ntc-product-filter__checkboxes::-webkit-scrollbar-thumb:hover {
+.slwn-product-filter--checkbox .slwn-product-filter__checkboxes::-webkit-scrollbar-thumb:hover {
     background: #a1a1a1;
 }
 
@@ -527,16 +527,16 @@
         flex-direction: column;
     }
     
-    .ntc-product-filter__select {
+    .slwn-product-filter__select {
         width: 100%;
         min-width: auto;
     }
     
-    .ntc-product-filter--buttons .ntc-product-filter__buttons {
+    .slwn-product-filter--buttons .slwn-product-filter__buttons {
         justify-content: center;
     }
     
-    .ntc-filters-buttons {
+    .slwn-filters-buttons {
         justify-content: center;
     }
 }
@@ -552,7 +552,7 @@
 }
 
 /* Ukrywanie elementów input radio dla kategorii */
-.ntc-product-filter--category input[type="radio"] {
+.slwn-product-filter--category input[type="radio"] {
     position: absolute;
     opacity: 0;
     width: 0;
@@ -560,12 +560,12 @@
 }
 
 /* Focus states dla dostępności */
-.ntc-filter-option:focus-within .ntc-filter-button {
+.slwn-filter-option:focus-within .slwn-filter-button {
     outline: 2px solid #007cba;
     outline-offset: 2px;
 }
 
-.ntc-product-filter__select:focus {
+.slwn-product-filter__select:focus {
     outline: 2px solid #007cba;
     outline-offset: 2px;
 }
