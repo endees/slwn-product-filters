@@ -68,6 +68,10 @@ Wtyczka dodaje 2 nowe widgety:
 /* Główny kontener */
 /* Główny kontener */
 /* Główny kontener */
+/* Główny kontener */
+/* Główny kontener */
+/* Główny kontener */
+/* Główny kontener */
 .slwn-product-filters-form       /* Formularz filtrów */
 .slwn-product-filter; /* Pojedynczy filtr */
 ```
@@ -76,6 +80,10 @@ Wtyczka dodaje 2 nowe widgety:
 
 ```css
 .slwn-product-filter--attribute   /* Filtr atrybutu */
+/* Filtr atrybutu */
+/* Filtr atrybutu */
+/* Filtr atrybutu */
+/* Filtr atrybutu */
 /* Filtr atrybutu */
 /* Filtr atrybutu */
 /* Filtr atrybutu */
@@ -88,6 +96,10 @@ Wtyczka dodaje 2 nowe widgety:
 
 ```css
 .slwn-product-filter__select      /* Lista rozwijana */
+/* Lista rozwijana */
+/* Lista rozwijana */
+/* Lista rozwijana */
+/* Lista rozwijana */
 /* Lista rozwijana */
 /* Lista rozwijana */
 /* Lista rozwijana */
@@ -161,7 +173,17 @@ Wtyczka obsługuje zaawansowane checkboxy umożliwiające zaznaczenie wielu wart
 
 ## 📝 Changelog
 
-### v1.2.0 (Obecna wersja) - Finalna wersja produkcyjna
+### v1.1.1 (Obecna wersja) - Naprawka localStorage
+
+**🔧 Poprawki błędów:**
+
+-   ✅ **Naprawiono problem z przywracaniem filtrów z localStorage** - po odznaczeniu wszystkich checkboxów i submicie filtry nie są już przywracane
+-   ✅ **Wzmocniono logikę czyszczenia localStorage** - gdy wszystkie filtry są puste, localStorage jest całkowicie czyszczone
+-   ✅ **Poprawiono funkcję `restoreProductFilters()`** - dodano wczesne wyjście gdy localStorage zawiera tylko puste filtry
+-   ✅ **Ulepszona walidacja filtrów** - bardziej restryktywne sprawdzanie czy wartości filtrów są rzeczywiście niepuste
+-   ✅ **Dodano funkcję `ensureUIStateConsistency()`** - zapewnia spójność UI z URL na początku ładowania strony
+
+### v1.2.0 - Finalna wersja produkcyjna
 
 **🎯 Główne ulepszenia:**
 
