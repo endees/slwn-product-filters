@@ -203,7 +203,7 @@ GPL v2 lub nowsza. Zobacz `LICENSE` file.
 
 ---
 
-**Autor**: Sławomir Sławiński  
+**Autor**: Maciej Sławiński  
 **Wersja**: 1.2.0  
 **Testowano do**: WordPress 6.4, WooCommerce 8.4  
 **Wymaga**: PHP 7.4+, WordPress 5.0+, WooCommerce 5.0+
