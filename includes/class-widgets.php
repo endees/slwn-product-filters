@@ -36,6 +36,7 @@ class SLWN_Product_Filter_Attributes_Widget extends WP_Widget {
         $parent_category = !empty($instance['parent_category']) ? (int)$instance['parent_category'] : 0;
         $placeholder = !empty($instance['placeholder']) ? $instance['placeholder'] : 'Wszystko';
         $display_type = !empty($instance['display_type']) ? $instance['display_type'] : 'select';
+        $show_empty = !empty($instance['show_empty']) ? (bool)$instance['show_empty'] : false;
         $min_label = !empty($instance['min_label']) ? $instance['min_label'] : 'Min';
         $max_label = !empty($instance['max_label']) ? $instance['max_label'] : 'Max';
         $unit = !empty($instance['unit']) ? $instance['unit'] : '';
@@ -57,9 +58,9 @@ class SLWN_Product_Filter_Attributes_Widget extends WP_Widget {
         $this->render_hidden_fields();
 
         if ($filter_type === 'attribute') {
-            $this->render_attribute_filter($attribute, $display_type, $placeholder, $min_label, $max_label, $unit);
+            $this->render_attribute_filter($attribute, $display_type, $placeholder, $min_label, $max_label, $unit, $show_empty);
         } elseif ($filter_type === 'category') {
-            $this->render_category_filter($parent_category, $display_type, $placeholder);
+            $this->render_category_filter($parent_category, $display_type, $placeholder, $show_empty);
         }
         
         echo '</form>';
@@ -67,20 +68,20 @@ class SLWN_Product_Filter_Attributes_Widget extends WP_Widget {
         echo $args['after_widget'];
     }
 
-    private function render_attribute_filter($attribute, $display_type, $placeholder, $min_label, $max_label, $unit) {
+    private function render_attribute_filter($attribute, $display_type, $placeholder, $min_label, $max_label, $unit, $show_empty = false) {
         $attribute_taxonomy = wc_attribute_taxonomy_name($attribute);
         $current_filter = isset($_GET['filter_' . $attribute]) ? wc_clean(wp_unslash($_GET['filter_' . $attribute])) : '';
         $min_value = isset($_GET['filter_' . $attribute . '_min']) ? wc_clean(wp_unslash($_GET['filter_' . $attribute . '_min'])) : '';
         $max_value = isset($_GET['filter_' . $attribute . '_max']) ? wc_clean(wp_unslash($_GET['filter_' . $attribute . '_max'])) : '';
 
         if ($display_type === 'range') {
-            $this->render_range_filter($attribute, $attribute_taxonomy, $min_value, $max_value, $min_label, $max_label, $unit);
+            $this->render_range_filter($attribute, $attribute_taxonomy, $min_value, $max_value, $min_label, $max_label, $unit, $show_empty);
         } else {
-            $this->render_select_or_buttons_filter($attribute, $attribute_taxonomy, $display_type, $placeholder, $current_filter);
+            $this->render_select_or_buttons_filter($attribute, $attribute_taxonomy, $display_type, $placeholder, $current_filter, $show_empty);
         }
     }
 
-    private function render_range_filter($attribute, $attribute_taxonomy, $min_value, $max_value, $min_label, $max_label, $unit) {
+    private function render_range_filter($attribute, $attribute_taxonomy, $min_value, $max_value, $min_label, $max_label, $unit, $show_empty = false) {
         $range_values = $this->get_attribute_range_values($attribute_taxonomy);
         $min = $range_values['min'];
         $max = $range_values['max'];
@@ -115,10 +116,10 @@ class SLWN_Product_Filter_Attributes_Widget extends WP_Widget {
         $this->add_range_slider_script($slider_id, $min, $max, $current_min, $current_max, $unit, $attribute);
     }
 
-    private function render_select_or_buttons_filter($attribute, $attribute_taxonomy, $display_type, $placeholder, $current_filter) {
+    private function render_select_or_buttons_filter($attribute, $attribute_taxonomy, $display_type, $placeholder, $current_filter, $show_empty = false) {
         $terms = get_terms([
             'taxonomy' => $attribute_taxonomy,
-            'hide_empty' => true,
+            'hide_empty' => !$show_empty,
         ]);
 
         if (is_wp_error($terms) || empty($terms)) {
@@ -173,10 +174,10 @@ class SLWN_Product_Filter_Attributes_Widget extends WP_Widget {
         <?php
     }
 
-    private function render_category_filter($parent_category, $display_type, $placeholder) {
+    private function render_category_filter($parent_category, $display_type, $placeholder, $show_empty = false) {
         $categories = get_terms([
             'taxonomy' => 'product_cat',
-            'hide_empty' => true,
+            'hide_empty' => !$show_empty,
             'parent' => $parent_category,
         ]);
 
@@ -345,6 +346,7 @@ class SLWN_Product_Filter_Attributes_Widget extends WP_Widget {
         $parent_category = !empty($instance['parent_category']) ? (int)$instance['parent_category'] : 0;
         $placeholder = !empty($instance['placeholder']) ? $instance['placeholder'] : 'Wszystko';
         $display_type = !empty($instance['display_type']) ? $instance['display_type'] : 'select';
+        $show_empty = !empty($instance['show_empty']) ? (bool)$instance['show_empty'] : false;
         $min_label = !empty($instance['min_label']) ? $instance['min_label'] : 'Min';
         $max_label = !empty($instance['max_label']) ? $instance['max_label'] : 'Max';
         $unit = !empty($instance['unit']) ? $instance['unit'] : '';
@@ -400,6 +402,13 @@ class SLWN_Product_Filter_Attributes_Widget extends WP_Widget {
             <label for="<?php echo esc_attr($this->get_field_id('placeholder')); ?>">Tekst domyślny:</label>
             <input class="widefat" id="<?php echo esc_attr($this->get_field_id('placeholder')); ?>" name="<?php echo esc_attr($this->get_field_name('placeholder')); ?>" type="text" value="<?php echo esc_attr($placeholder); ?>">
         </p>
+        <p class="show-empty-field">
+            <input type="checkbox" id="<?php echo esc_attr($this->get_field_id('show_empty')); ?>" name="<?php echo esc_attr($this->get_field_name('show_empty')); ?>" value="1" <?php checked(1, $show_empty); ?> />
+            <label for="<?php echo esc_attr($this->get_field_id('show_empty')); ?>">
+                📊 Pokaż opcje bez produktów (w tym opcje z 0 produktów)
+            </label>
+            <br><small style="color: #666;">Domyślnie pokazywane są tylko opcje z produktami. Zaznacz aby pokazać wszystkie opcje atrybutu/kategorii.</small>
+        </p>
         <div class="range-fields" <?php echo $display_type !== 'range' ? 'style="display:none;"' : ''; ?>>
             <h4>⚙️ Ustawienia suwaka zakresu</h4>
             <p>
@@ -426,6 +435,7 @@ class SLWN_Product_Filter_Attributes_Widget extends WP_Widget {
         $instance['parent_category'] = (!empty($new_instance['parent_category'])) ? (int)$new_instance['parent_category'] : 0;
         $instance['placeholder'] = (!empty($new_instance['placeholder'])) ? sanitize_text_field($new_instance['placeholder']) : 'Wszystko';
         $instance['display_type'] = (!empty($new_instance['display_type'])) ? sanitize_text_field($new_instance['display_type']) : 'select';
+        $instance['show_empty'] = (!empty($new_instance['show_empty'])) ? (bool)$new_instance['show_empty'] : false;
         $instance['min_label'] = (!empty($new_instance['min_label'])) ? sanitize_text_field($new_instance['min_label']) : 'Min';
         $instance['max_label'] = (!empty($new_instance['max_label'])) ? sanitize_text_field($new_instance['max_label']) : 'Max';
         $instance['unit'] = (!empty($new_instance['unit'])) ? sanitize_text_field($new_instance['unit']) : '';
@@ -696,6 +706,7 @@ class SLWN_Product_Filter_Categories_Widget extends WP_Widget {
         $title = !empty($instance['title']) ? $instance['title'] : '';
         $parent_category = !empty($instance['parent_category']) ? (int)$instance['parent_category'] : 0;
         $placeholder = !empty($instance['placeholder']) ? $instance['placeholder'] : 'Wszystkie kategorie';
+        $show_empty = !empty($instance['show_empty']) ? (bool)$instance['show_empty'] : false;
 
         echo $args['before_widget'];
         if (!empty($title)) {
@@ -709,19 +720,19 @@ class SLWN_Product_Filter_Categories_Widget extends WP_Widget {
         // Zachowaj aktualne parametry (bez product_cat)
         $this->render_hidden_fields();
 
-        $this->render_category_filter($parent_category, $placeholder);
+        $this->render_category_filter($parent_category, $placeholder, $show_empty);
         
         echo '</form>';
 
         echo $args['after_widget'];
     }
 
-    private function render_category_filter($parent_category, $placeholder) {
+    private function render_category_filter($parent_category, $placeholder, $show_empty = false) {
         $current_category = get_query_var('product_cat');
         
         $categories = get_terms(array(
             'taxonomy' => 'product_cat',
-            'hide_empty' => true,
+            'hide_empty' => !$show_empty,
             'parent' => $parent_category
         ));
 
@@ -744,6 +755,7 @@ class SLWN_Product_Filter_Categories_Widget extends WP_Widget {
         $title = !empty($instance['title']) ? $instance['title'] : '';
         $parent_category = !empty($instance['parent_category']) ? $instance['parent_category'] : 0;
         $placeholder = !empty($instance['placeholder']) ? $instance['placeholder'] : 'Wszystkie kategorie';
+        $show_empty = !empty($instance['show_empty']) ? (bool)$instance['show_empty'] : false;
         ?>
         <p>
             <label for="<?php echo esc_attr($this->get_field_id('title')); ?>">Tytuł:</label>
@@ -767,6 +779,13 @@ class SLWN_Product_Filter_Categories_Widget extends WP_Widget {
             <label for="<?php echo esc_attr($this->get_field_id('placeholder')); ?>">Tekst placeholder:</label>
             <input class="widefat" id="<?php echo esc_attr($this->get_field_id('placeholder')); ?>" name="<?php echo esc_attr($this->get_field_name('placeholder')); ?>" type="text" value="<?php echo esc_attr($placeholder); ?>">
         </p>
+        <p class="show-empty-field">
+            <input type="checkbox" id="<?php echo esc_attr($this->get_field_id('show_empty')); ?>" name="<?php echo esc_attr($this->get_field_name('show_empty')); ?>" value="1" <?php checked(1, $show_empty); ?> />
+            <label for="<?php echo esc_attr($this->get_field_id('show_empty')); ?>">
+                📊 Pokaż kategorie bez produktów (w tym kategorie z 0 produktów)
+            </label>
+            <br><small style="color: #666;">Domyślnie pokazywane są tylko kategorie z produktami. Zaznacz aby pokazać wszystkie kategorie.</small>
+        </p>
         <?php
     }
 
@@ -775,6 +794,7 @@ class SLWN_Product_Filter_Categories_Widget extends WP_Widget {
         $instance['title'] = (!empty($new_instance['title'])) ? sanitize_text_field($new_instance['title']) : '';
         $instance['parent_category'] = (!empty($new_instance['parent_category'])) ? (int)$new_instance['parent_category'] : 0;
         $instance['placeholder'] = (!empty($new_instance['placeholder'])) ? sanitize_text_field($new_instance['placeholder']) : 'Wszystkie kategorie';
+        $instance['show_empty'] = (!empty($new_instance['show_empty'])) ? (bool)$new_instance['show_empty'] : false;
 
         return $instance;
     }
