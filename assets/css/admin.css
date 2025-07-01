@@ -1,0 +1,76 @@
+/**
+ * Admin styles for SLWN Product Filters
+ */
+
+.slwn-product-filters-admin {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+.slwn-product-filters-admin .form-table th {
+    width: 200px;
+}
+
+.slwn-product-filters-admin .form-table td {
+    padding: 20px 10px;
+}
+
+.slwn-product-filters-admin .form-table input[type="text"],
+.slwn-product-filters-admin .form-table input[type="number"],
+.slwn-product-filters-admin .form-table select,
+.slwn-product-filters-admin .form-table textarea {
+    width: 100%;
+    max-width: 400px;
+}
+
+.slwn-product-filters-admin .form-table textarea {
+    height: 100px;
+    resize: vertical;
+}
+
+.slwn-product-filters-admin .notice {
+    margin: 5px 0 15px;
+}
+
+.slwn-product-filters-admin .button-primary {
+    background: #2271b1;
+    border-color: #2271b1;
+    color: #fff;
+}
+
+.slwn-product-filters-admin .button-primary:hover {
+    background: #135e96;
+    border-color: #135e96;
+}
+
+/* Loading spinner */
+.slwn-product-filters-spinner {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 3px solid #f3f3f3;
+    border-top: 3px solid #3498db;
+    border-radius: 50%;
+    animation: slwn-product-filters-spin 1s linear infinite;
+    margin-left: 10px;
+    vertical-align: middle;
+}
+
+@keyframes slwn-product-filters-spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Responsive */
+@media (max-width: 782px) {
+    .slwn-product-filters-admin .form-table th,
+    .slwn-product-filters-admin .form-table td {
+        display: block;
+        width: 100%;
+        padding: 10px 0;
+    }
+    
+    .slwn-product-filters-admin .form-table th {
+        border-bottom: 0;
+        padding-bottom: 0;
+    }
+}

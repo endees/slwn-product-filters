@@ -1,0 +1,179 @@
+# Copyright (C) 2025 SLWN Product Filters
+# This file is distributed under the same license as the SLWN Product Filters package.
+msgid ""
+msgstr ""
+"Project-Id-Version: SLWN Product Filters 1.0.0\n"
+"Report-Msgid-Bugs-To: https://slawinsky.pl/kontakt\n"
+"POT-Creation-Date: 2025-07-01 12:00:00+00:00\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2025-MO-DA HO:MI+ZONE\n"
+"Last-Translator: Maciej Sławiński <kontakt@slawinsky.pl>\n"
+"Language-Team: Polish <kontakt@slawinsky.pl>\n"
+
+#: slwn-product-filters.php:50
+msgid "Product Filters"
+msgstr ""
+
+#: includes/class-admin.php:45
+msgid "Główne ustawienia"
+msgstr ""
+
+#: includes/class-admin.php:54
+msgid "Włącz filtry produktów"
+msgstr ""
+
+#: includes/class-admin.php:65
+msgid "Skonfiguruj ustawienia filtrów produktów WooCommerce."
+msgstr ""
+
+#: includes/class-admin.php:75
+msgid "Zaznacz aby włączyć filtry produktów"
+msgstr ""
+
+#: includes/class-admin.php:92
+msgid "Ustawienia zostały zapisane."
+msgstr ""
+
+#: includes/class-frontend.php:90
+msgid "Filtruj produkty"
+msgstr ""
+
+#: includes/class-frontend.php:95
+msgid "Kategorie"
+msgstr ""
+
+#: includes/class-frontend.php:101
+msgid "Atrybuty"
+msgstr ""
+
+#: includes/class-frontend.php:107
+msgid "Cena"
+msgstr ""
+
+#: includes/class-ajax.php:46
+#: includes/class-ajax.php:68
+#: includes/class-ajax.php:90
+msgid "Błąd bezpieczeństwa"
+msgstr ""
+
+#: includes/class-ajax.php:55
+msgid "Produkty zostały przefiltrowane"
+msgstr ""
+
+#: includes/class-ajax.php:77
+msgid "Więcej produktów zostało załadowanych"
+msgstr ""
+
+#: includes/class-ajax.php:85
+msgid "Brak uprawnień"
+msgstr ""
+
+#: includes/class-ajax.php:97
+msgid "Opcje filtra zostały pobrane"
+msgstr ""
+
+#: admin/views/admin-page.php:20
+msgid "Zapisz ustawienia"
+msgstr ""
+
+#: admin/views/admin-page.php:25
+msgid "Informacje o wtyczce"
+msgstr ""
+
+#: admin/views/admin-page.php:26
+msgid "Wersja:"
+msgstr ""
+
+#: admin/views/admin-page.php:27
+msgid "Autor:"
+msgstr ""
+
+#: admin/views/admin-page.php:28
+msgid "Ta wtyczka umożliwia filtrowanie produktów WooCommerce po atrybutach i kategoriach."
+msgstr ""
+
+#: admin/views/admin-page.php:30
+msgid "Shortcodes"
+msgstr ""
+
+#: admin/views/admin-page.php:31
+msgid "Główny shortcode filtrów:"
+msgstr ""
+
+#: admin/views/admin-page.php:32
+msgid "Z parametrami:"
+msgstr ""
+
+#: admin/views/admin-page.php:33
+msgid "Widget filtra:"
+msgstr ""
+
+#: admin/views/admin-page.php:35
+msgid "Dostępne style"
+msgstr ""
+
+#: admin/views/admin-page.php:37
+msgid "Standardowy styl"
+msgstr ""
+
+#: admin/views/admin-page.php:38
+msgid "Nowoczesny styl"
+msgstr ""
+
+#: admin/views/admin-page.php:39
+msgid "Minimalistyczny styl"
+msgstr ""
+
+#: admin/views/admin-page.php:40
+msgid "Kompaktowy styl"
+msgstr ""
+
+#: admin/views/admin-page.php:43
+msgid "Dostępne hooki"
+msgstr ""
+
+#: admin/views/admin-page.php:45
+msgid "Przed inicjalizacją wtyczki"
+msgstr ""
+
+#: admin/views/admin-page.php:46
+msgid "Po inicjalizacji wtyczki"
+msgstr ""
+
+#: admin/views/admin-page.php:47
+msgid "Po zapisie ustawień"
+msgstr ""
+
+#: admin/views/admin-page.php:48
+msgid "Przed filtrowaniem produktów"
+msgstr ""
+
+#: admin/views/admin-page.php:49
+msgid "Po filtrowaniu produktów"
+msgstr ""
+
+#: templates/filters-template.php:15
+msgid "Filtruj produkty"
+msgstr ""
+
+#: templates/filters-template.php:21
+msgid "Kategorie produktów"
+msgstr ""
+
+#: templates/filters-template.php:43
+msgid "Atrybuty produktów"
+msgstr ""
+
+#: templates/filters-template.php:75
+msgid "Zakres cenowy"
+msgstr ""
+
+#: templates/filters-template.php:87
+msgid "Zastosuj filtry"
+msgstr ""
+
+#: templates/filters-template.php:90
+msgid "Wyczyść filtry"
+msgstr ""

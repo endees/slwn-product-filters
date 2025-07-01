@@ -1,0 +1,126 @@
+# Copyright (C) 2024 Maciej Sławiński
+# This file is distributed under the same license as the SLWN Product Filters plugin.
+msgid ""
+msgstr ""
+"Project-Id-Version: SLWN Product Filters 1.0.0\n"
+"Report-Msgid-Bugs-To: https://slawinsky.pl\n"
+"POT-Creation-Date: 2024-01-01 00:00+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: includes/class-admin.php:25
+msgid "SLWN Product Filters"
+msgstr ""
+
+#: includes/class-admin.php:31
+msgid "Ustawienia"
+msgstr ""
+
+#: includes/class-admin.php:69
+msgid "Ustawienia SLWN Product Filters"
+msgstr ""
+
+#: includes/class-admin.php:73
+msgid "Zapisz ustawienia"
+msgstr ""
+
+#: includes/class-widgets.php:15
+msgid "Filtr produktów"
+msgstr ""
+
+#: includes/class-widgets.php:17
+msgid "Wyświetla filtry atrybutów produktów"
+msgstr ""
+
+#: includes/class-widgets.php:251
+msgid "Typ filtra:"
+msgstr ""
+
+#: includes/class-widgets.php:253
+msgid "Atrybut"
+msgstr ""
+
+#: includes/class-widgets.php:254
+msgid "Kategoria"
+msgstr ""
+
+#: includes/class-widgets.php:257
+msgid "Atrybut:"
+msgstr ""
+
+#: includes/class-widgets.php:259
+msgid "Wybierz atrybut"
+msgstr ""
+
+#: includes/class-widgets.php:267
+msgid "Kategoria nadrzędna:"
+msgstr ""
+
+#: includes/class-widgets.php:270
+msgid "Wszystkie główne kategorie"
+msgstr ""
+
+#: includes/class-widgets.php:280
+msgid "Sposób wyświetlania:"
+msgstr ""
+
+#: includes/class-widgets.php:282
+msgid "Lista rozwijana"
+msgstr ""
+
+#: includes/class-widgets.php:283
+msgid "Przyciski"
+msgstr ""
+
+#: includes/class-widgets.php:284
+msgid "Suwak zakresu"
+msgstr ""
+
+#: includes/class-widgets.php:287
+msgid "Tekst domyślny:"
+msgstr ""
+
+#: includes/class-widgets.php:291
+msgid "Etykieta minimum:"
+msgstr ""
+
+#: includes/class-widgets.php:294
+msgid "Etykieta maksimum:"
+msgstr ""
+
+#: includes/class-widgets.php:297
+msgid "Jednostka:"
+msgstr ""
+
+#: includes/class-widgets.php:352
+msgid "Przyciski filtra"
+msgstr ""
+
+#: includes/class-widgets.php:354
+msgid "Wyświetla przyciski filtruj i resetuj dla filtrów produktów"
+msgstr ""
+
+#: includes/class-widgets.php:395
+msgid "Pokaż przycisk filtruj"
+msgstr ""
+
+#: includes/class-widgets.php:399
+msgid "Tekst przycisku filtruj:"
+msgstr ""
+
+#: includes/class-widgets.php:403
+msgid "Pokaż przycisk resetuj"
+msgstr ""
+
+#: includes/class-widgets.php:407
+msgid "Tekst przycisku resetuj:"
+msgstr ""
+
+#: templates/filters-template.php:50
+msgid "Aby wyświetlić filtry, dodaj widgety \"Filtr produktów\" do obszaru widgetów \"Shop Filters\"."
+msgstr ""

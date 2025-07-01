@@ -1,0 +1,571 @@
+/**
+ * Frontend styles for SLWN Product Filters
+ */
+
+/* Main filter container */
+.slwn-product-filters {
+    background: #fff;
+    border: 1px solid #e1e1e1;
+    border-radius: 4px;
+    padding: 20px;
+    margin: 20px 0;
+}
+
+.slwn-product-filters h3 {
+    margin-top: 0;
+    color: #333;
+    font-size: 20px;
+    border-bottom: 2px solid #0073aa;
+    padding-bottom: 10px;
+}
+
+/* Filter sections */
+.slwn-product-filters .filter-section {
+    margin: 20px 0;
+    padding: 15px 0;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.slwn-product-filters .filter-section:last-child {
+    border-bottom: none;
+}
+
+.slwn-product-filters .filter-section h4 {
+    margin: 0 0 10px 0;
+    color: #555;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+/* Filter widget */
+.slwn-filter-widget {
+    background: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 15px;
+    margin: 15px 0;
+}
+
+.slwn-filter-widget h4 {
+    margin-top: 0;
+    color: #333;
+    font-size: 16px;
+}
+
+/* Filter styles */
+.slwn-product-filters[data-style="modern"] {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+}
+
+.slwn-product-filters[data-style="modern"] h3 {
+    color: white;
+    border-bottom-color: rgba(255,255,255,0.3);
+}
+
+.slwn-product-filters[data-style="minimal"] {
+    background: transparent;
+    border: none;
+    padding: 10px 0;
+}
+
+.slwn-product-filters[data-style="compact"] {
+    padding: 10px;
+    margin: 10px 0;
+}
+
+.slwn-product-filters[data-style="compact"] .filter-section {
+    margin: 10px 0;
+    padding: 10px 0;
+}
+
+/* Filter buttons and inputs */
+.slwn-filter-button {
+    background: #0073aa;
+    border: none;
+    border-radius: 4px;
+    color: white;
+    padding: 8px 16px;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 14px;
+    margin: 2px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.slwn-filter-button:hover {
+    background: #005a87;
+    color: white;
+    text-decoration: none;
+    transform: translateY(-1px);
+}
+
+.slwn-filter-button.active {
+    background: #00a32a;
+}
+
+.slwn-filter-button:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+}
+
+/* Filter checkboxes and radio buttons */
+.slwn-filter-option {
+    display: block;
+    margin: 8px 0;
+    cursor: pointer;
+}
+
+.slwn-filter-option input[type="checkbox"],
+.slwn-filter-option input[type="radio"] {
+    margin-right: 8px;
+}
+
+.slwn-filter-option label {
+    cursor: pointer;
+    font-weight: normal;
+}
+
+/* Price range slider */
+.slwn-price-range {
+    margin: 15px 0;
+}
+
+.slwn-price-range input[type="range"] {
+    width: 100%;
+    margin: 10px 0;
+}
+
+.slwn-price-values {
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px;
+    color: #666;
+}
+
+/* Loading states */
+.slwn-filters-loading {
+    opacity: 0.6;
+    pointer-events: none;
+}
+
+.slwn-filters-loading::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 20px;
+    height: 20px;
+    margin: -10px 0 0 -10px;
+    border: 2px solid #f3f3f3;
+    border-top: 2px solid #0073aa;
+    border-radius: 50%;
+    animation: slwn-filters-spin 1s linear infinite;
+}
+
+@keyframes slwn-filters-spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .slwn-product-filters,
+    .slwn-filter-widget {
+        margin: 10px 0;
+        padding: 15px;
+    }
+    
+    .slwn-filter-button {
+        width: 100%;
+        text-align: center;
+        margin: 5px 0;
+    }
+    
+    .slwn-product-filters .filter-section {
+        margin: 15px 0;
+        padding: 10px 0;
+    }
+    
+    .slwn-price-values {
+        font-size: 12px;
+    }
+}
+
+/* Sidebar layout */
+.slwn-product-filters[data-type="sidebar"] {
+    position: sticky;
+    top: 20px;
+    max-height: calc(100vh - 40px);
+    overflow-y: auto;
+}
+
+/* Horizontal layout */
+.slwn-product-filters[data-type="horizontal"] {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 20px;
+}
+
+.slwn-product-filters[data-type="horizontal"] .filter-section {
+    flex: 1;
+    min-width: 200px;
+    margin: 0;
+    padding: 0;
+    border-bottom: none;
+}
+
+@media (max-width: 768px) {
+    .slwn-product-filters[data-type="horizontal"] {
+        flex-direction: column;
+        gap: 10px;
+    }
+}
+
+/* Results display */
+.slwn-filter-results {
+    margin: 20px 0;
+}
+
+.slwn-filter-results-count {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 15px;
+}
+
+.slwn-active-filters {
+    margin: 15px 0;
+}
+
+.slwn-active-filter-tag {
+    display: inline-block;
+    background: #0073aa;
+    color: white;
+    padding: 4px 8px;
+    border-radius: 15px;
+    font-size: 12px;
+    margin: 2px;
+    text-decoration: none;
+}
+
+.slwn-active-filter-tag:hover {
+    background: #005a87;
+    color: white;
+    text-decoration: none;
+}
+
+.slwn-clear-filters {
+    background: #dc3232;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 3px;
+    cursor: pointer;
+    font-size: 12px;
+    margin-left: 10px;
+}
+
+.slwn-clear-filters:hover {
+    background: #b32d2e;
+}
+
+/* Style dla nowych widgetów NTC przeniesionych z motywu */
+
+/* Główny kontener filtrów */
+.slwn-product-filters-wrapper {
+    margin-bottom: 20px;
+}
+
+.slwn-product-filters-form {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    align-items: center;
+}
+
+.slwn-filters-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    width: 100%;
+}
+
+/* Style dla widgetów filtrów NTC */
+.ntc-product-filter {
+    margin-bottom: 15px;
+}
+
+.ntc-product-filter__select {
+    min-width: 150px;
+    padding: 8px 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background: white;
+    font-size: 14px;
+}
+
+.ntc-product-filter__select:focus {
+    outline: none;
+    border-color: #0073aa;
+    box-shadow: 0 0 0 1px #0073aa;
+}
+
+/* Style dla przycisków filtrów */
+.ntc-product-filter--buttons .ntc-product-filter__buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.ntc-filter-option {
+    position: relative;
+    cursor: pointer;
+}
+
+.ntc-filter-option input[type="radio"] {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.ntc-filter-button {
+    display: inline-block;
+    padding: 8px 15px;
+    background: #f8f9fa;
+    border: 1px solid #dee2e6;
+    border-radius: 4px;
+    color: #495057;
+    text-decoration: none;
+    font-size: 14px;
+    transition: all 0.2s ease;
+    cursor: pointer;
+}
+
+.ntc-filter-button:hover {
+    background: #e9ecef;
+    border-color: #adb5bd;
+}
+
+.ntc-filter-option input[type="radio"]:checked + .ntc-filter-button {
+    background: #007cba;
+    border-color: #007cba;
+    color: white;
+}
+
+/* Style dla suwaków zakresu */
+.ntc-product-filter--range .ntc-range-slider-container {
+    padding: 15px;
+    background: #f8f9fa;
+    border: 1px solid #dee2e6;
+    border-radius: 4px;
+}
+
+.ntc-range-values {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    font-size: 14px;
+    color: #495057;
+}
+
+.ntc-range-slider {
+    height: 6px;
+    background: #dee2e6;
+    border-radius: 3px;
+    margin: 10px 0;
+}
+
+/* Style dla przycisków akcji */
+.ntc-filters-buttons {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.ntc-filters-buttons__filter,
+.ntc-filters-buttons__reset {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    font-size: 14px;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    transition: all 0.2s ease;
+}
+
+.ntc-filters-buttons__filter {
+    background: #007cba;
+    color: white;
+}
+
+.ntc-filters-buttons__filter:hover {
+    background: #005a87;
+}
+
+.ntc-filters-buttons__reset {
+    background: #6c757d;
+    color: white;
+}
+
+.ntc-filters-buttons__reset:hover {
+    background: #545b62;
+    color: white;
+    text-decoration: none;
+}
+
+/* Checkbox filters styling */
+.ntc-product-filter--checkbox .ntc-product-filter__checkboxes {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 10px;
+}
+
+.ntc-filter-option--checkbox {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    padding: 6px 0;
+    transition: background-color 0.2s ease;
+}
+
+.ntc-filter-option--checkbox:hover {
+    background-color: rgba(0, 115, 170, 0.05);
+    border-radius: 4px;
+    padding: 6px 8px;
+}
+
+.ntc-product-filter__checkbox {
+    margin-right: 8px;
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+    accent-color: #0073aa;
+}
+
+.ntc-filter-checkbox-label {
+    font-size: 14px;
+    color: #333;
+    cursor: pointer;
+    flex: 1;
+    user-select: none;
+}
+
+.ntc-filter-option--checkbox:hover .ntc-filter-checkbox-label {
+    color: #0073aa;
+}
+
+.ntc-product-filter__checkbox:checked + .ntc-filter-checkbox-label {
+    font-weight: 600;
+    color: #0073aa;
+}
+
+/* Responsive design for checkboxes */
+@media (max-width: 768px) {
+    .ntc-product-filter--checkbox .ntc-product-filter__checkboxes {
+        gap: 6px;
+    }
+    
+    .ntc-filter-option--checkbox {
+        padding: 4px 0;
+    }
+    
+    .ntc-filter-option--checkbox:hover {
+        padding: 4px 8px;
+    }
+    
+    .ntc-filter-checkbox-label {
+        font-size: 13px;
+    }
+}
+
+/* Compatibility with existing button and select styles */
+.ntc-product-filter--checkbox {
+    margin-bottom: 15px;
+}
+
+.ntc-product-filter--checkbox .ntc-product-filter__checkboxes {
+    max-height: 200px;
+    overflow-y: auto;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 8px;
+    background: #fff;
+}
+
+.ntc-product-filter--checkbox .ntc-product-filter__checkboxes::-webkit-scrollbar {
+    width: 6px;
+}
+
+.ntc-product-filter--checkbox .ntc-product-filter__checkboxes::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 3px;
+}
+
+.ntc-product-filter--checkbox .ntc-product-filter__checkboxes::-webkit-scrollbar-thumb {
+    background: #c1c1c1;
+    border-radius: 3px;
+}
+
+.ntc-product-filter--checkbox .ntc-product-filter__checkboxes::-webkit-scrollbar-thumb:hover {
+    background: #a1a1a1;
+}
+
+/* Responsywność dla nowych stylów */
+@media (max-width: 768px) {
+    .slwn-product-filters-form {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .slwn-filters-container {
+        flex-direction: column;
+    }
+    
+    .ntc-product-filter__select {
+        width: 100%;
+        min-width: auto;
+    }
+    
+    .ntc-product-filter--buttons .ntc-product-filter__buttons {
+        justify-content: center;
+    }
+    
+    .ntc-filters-buttons {
+        justify-content: center;
+    }
+}
+
+/* Style dla domyślnych filtrów gdy brak widgetów */
+.slwn-default-filters {
+    padding: 20px;
+    background: #f8f9fa;
+    border: 1px solid #dee2e6;
+    border-radius: 4px;
+    text-align: center;
+    color: #6c757d;
+}
+
+/* Ukrywanie elementów input radio dla kategorii */
+.ntc-product-filter--category input[type="radio"] {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+/* Focus states dla dostępności */
+.ntc-filter-option:focus-within .ntc-filter-button {
+    outline: 2px solid #007cba;
+    outline-offset: 2px;
+}
+
+.ntc-product-filter__select:focus {
+    outline: 2px solid #007cba;
+    outline-offset: 2px;
+}
