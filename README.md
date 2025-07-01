@@ -66,6 +66,8 @@ Wtyczka dodaje 2 nowe widgety:
 ```css
 .slwn-product-filters-wrapper    /* Główny kontener */
 /* Główny kontener */
+/* Główny kontener */
+/* Główny kontener */
 .slwn-product-filters-form       /* Formularz filtrów */
 .slwn-product-filter; /* Pojedynczy filtr */
 ```
@@ -74,6 +76,8 @@ Wtyczka dodaje 2 nowe widgety:
 
 ```css
 .slwn-product-filter--attribute   /* Filtr atrybutu */
+/* Filtr atrybutu */
+/* Filtr atrybutu */
 /* Filtr atrybutu */
 .slwn-product-filter--category    /* Filtr kategorii */
 .slwn-product-filter--range       /* Filtr zakresu */
@@ -84,6 +88,8 @@ Wtyczka dodaje 2 nowe widgety:
 
 ```css
 .slwn-product-filter__select      /* Lista rozwijana */
+/* Lista rozwijana */
+/* Lista rozwijana */
 /* Lista rozwijana */
 .slwn-product-filter__buttons     /* Przyciski radio */
 .slwn-product-filter__checkboxes  /* Kontener checkboxów */
@@ -113,10 +119,18 @@ Wtyczka dodaje 2 nowe widgety:
 
 Wtyczka obsługuje zaawansowane checkboxy umożliwiające zaznaczenie wielu wartości:
 
--   **Format URL**: `?filter_color=czerwony,niebieski,zielony`
+-   **Format URL**: `?pa_color=czerwony,niebieski,zielony` (dla atrybutów)
+-   **Format kategorii**: `?product_cat=kategoria1,kategoria2`
+-   **Format range**: `?min_pa_rozmiar=10&max_pa_rozmiar=50`
 -   **Automatyczne łączenie** wartości przecinkami
 -   **Synchronizacja** między URL, localStorage i formularzem
 -   **Proper reset** - odznaczenie wszystkich checkboxów czyści filtr
+
+**📋 Format parametrów URL:**
+
+-   **Atrybuty produktów**: `pa_nazwa_atrybutu` (np. `pa_color`, `pa_size`)
+-   **Kategorie**: `product_cat`
+-   **Range slidery**: `min_pa_nazwa` i `max_pa_nazwa` (np. `min_pa_rozmiar`, `max_pa_rozmiar`)
 
 ## 🛠️ Wymagania systemowe
 
@@ -158,6 +172,8 @@ Wtyczka obsługuje zaawansowane checkboxy umożliwiające zaznaczenie wielu wart
 -   ✅ **Poprawiona synchronizacja URL ↔ Formularz** - pełna obsługa wszystkich typów filtrów
 -   ✅ **Zmieniono klasy CSS z `ntc-` na `slwn-`** - ujednolicenie nazewnictwa
 -   ✅ **Naprawiono dynamiczne przełączanie pól w adminie** - pola widgetów przełączają się bez przeładowywania
+-   ✅ **Dodano opcję "Pokaż opcje bez produktów"** - możliwość wyświetlania wszystkich opcji atrybutu/kategorii
+-   ✅ **Poprawiono format URL zgodnie ze standardem WooCommerce** - używa `pa_` dla atrybutów zamiast `filter_`
 
 **🔧 Zmiany techniczne:**
 
@@ -168,6 +184,7 @@ Wtyczka obsługuje zaawansowane checkboxy umożliwiające zaznaczenie wielu wart
 -   Zmieniono wszystkie klasy CSS z prefiksu `ntc-` na `slwn-`
 -   Dodano centralny system JavaScript w adminie dla obsługi widgetów
 -   Ulepszona obsługa enqueue'owania skryptów w panelu administracyjnym
+-   **Zmieniono format parametrów URL**: atrybuty używają teraz `pa_nazwa_atrybutu`, range slidery `min_pa_nazwa` i `max_pa_nazwa`
 
 **🗑️ Oczyszczanie:**
 

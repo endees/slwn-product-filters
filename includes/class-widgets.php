@@ -70,9 +70,16 @@ class SLWN_Product_Filter_Attributes_Widget extends WP_Widget {
 
     private function render_attribute_filter($attribute, $display_type, $placeholder, $min_label, $max_label, $unit, $show_empty = false) {
         $attribute_taxonomy = wc_attribute_taxonomy_name($attribute);
-        $current_filter = isset($_GET['filter_' . $attribute]) ? wc_clean(wp_unslash($_GET['filter_' . $attribute])) : '';
-        $min_value = isset($_GET['filter_' . $attribute . '_min']) ? wc_clean(wp_unslash($_GET['filter_' . $attribute . '_min'])) : '';
-        $max_value = isset($_GET['filter_' . $attribute . '_max']) ? wc_clean(wp_unslash($_GET['filter_' . $attribute . '_max'])) : '';
+        
+        // WooCommerce używa pa_ jako prefiksu dla atrybutów w URL
+        $url_param_name = 'pa_' . $attribute;
+        $current_filter = isset($_GET[$url_param_name]) ? wc_clean(wp_unslash($_GET[$url_param_name])) : '';
+        
+        // Dla range sliderów używamy min_ i max_ prefixów
+        $min_param_name = 'min_' . $url_param_name;
+        $max_param_name = 'max_' . $url_param_name;
+        $min_value = isset($_GET[$min_param_name]) ? wc_clean(wp_unslash($_GET[$min_param_name])) : '';
+        $max_value = isset($_GET[$max_param_name]) ? wc_clean(wp_unslash($_GET[$max_param_name])) : '';
 
         if ($display_type === 'range') {
             $this->render_range_filter($attribute, $attribute_taxonomy, $min_value, $max_value, $min_label, $max_label, $unit, $show_empty);
@@ -108,8 +115,8 @@ class SLWN_Product_Filter_Attributes_Widget extends WP_Widget {
                      data-current-max="<?php echo esc_attr($current_max); ?>"
                      data-unit="<?php echo esc_attr($unit); ?>">
                 </div>
-                <input type="hidden" name="filter_<?php echo esc_attr($attribute); ?>_min" id="<?php echo esc_attr($slider_id); ?>-min" value="<?php echo esc_attr($current_min); ?>">
-                <input type="hidden" name="filter_<?php echo esc_attr($attribute); ?>_max" id="<?php echo esc_attr($slider_id); ?>-max" value="<?php echo esc_attr($current_max); ?>">
+                <input type="hidden" name="min_pa_<?php echo esc_attr($attribute); ?>" id="<?php echo esc_attr($slider_id); ?>-min" value="<?php echo esc_attr($current_min); ?>">
+                <input type="hidden" name="max_pa_<?php echo esc_attr($attribute); ?>" id="<?php echo esc_attr($slider_id); ?>-max" value="<?php echo esc_attr($current_max); ?>">
             </div>
         </div>
         <?php
@@ -136,7 +143,7 @@ class SLWN_Product_Filter_Attributes_Widget extends WP_Widget {
         ?>
         <div class="slwn-product-filter slwn-product-filter--<?php echo esc_attr($attribute); ?> slwn-product-filter--<?php echo esc_attr($display_type); ?>">
             <?php if ($display_type === 'select') : ?>
-                <select name="filter_<?php echo esc_attr($attribute); ?>" class="slwn-product-filter__select filter-control">
+                <select name="pa_<?php echo esc_attr($attribute); ?>" class="slwn-product-filter__select filter-control">
                     <option value=""><?php echo esc_html($placeholder); ?></option>
                     <?php foreach ($terms as $term) : ?>
                         <option value="<?php echo esc_attr($term->slug); ?>" <?php selected($current_filter, $term->slug); ?>>
@@ -148,7 +155,7 @@ class SLWN_Product_Filter_Attributes_Widget extends WP_Widget {
                 <div class="slwn-product-filter__checkboxes">
                     <?php foreach ($terms as $term) : ?>
                         <label class="slwn-filter-option slwn-filter-option--checkbox">
-                            <input type="checkbox" name="filter_<?php echo esc_attr($attribute); ?>[]" value="<?php echo esc_attr($term->slug); ?>" 
+                            <input type="checkbox" name="pa_<?php echo esc_attr($attribute); ?>[]" value="<?php echo esc_attr($term->slug); ?>" 
                                    <?php checked(in_array($term->slug, $current_values), true); ?> 
                                    class="slwn-product-filter__checkbox filter-control"
                                    data-attribute="<?php echo esc_attr($attribute); ?>">
@@ -156,13 +163,13 @@ class SLWN_Product_Filter_Attributes_Widget extends WP_Widget {
                         </label>
                     <?php endforeach; ?>
                     <!-- Hidden field do przechowywania wartości dla URL -->
-                    <input type="hidden" name="filter_<?php echo esc_attr($attribute); ?>" value="<?php echo esc_attr($current_filter); ?>" class="checkbox-values-holder">
+                    <input type="hidden" name="pa_<?php echo esc_attr($attribute); ?>" value="<?php echo esc_attr($current_filter); ?>" class="checkbox-values-holder">
                 </div>
             <?php else : // buttons ?>
                 <div class="slwn-product-filter__buttons">
                     <?php foreach ($terms as $term) : ?>
                         <label class="slwn-filter-option">
-                            <input type="radio" name="filter_<?php echo esc_attr($attribute); ?>" value="<?php echo esc_attr($term->slug); ?>" 
+                            <input type="radio" name="pa_<?php echo esc_attr($attribute); ?>" value="<?php echo esc_attr($term->slug); ?>" 
                                    <?php checked($current_filter, $term->slug); ?> 
                                    class="slwn-product-filter__radio">
                             <span class="slwn-filter-button"><?php echo esc_html($term->name); ?> (<?php echo $term->count; ?>)</span>
@@ -564,17 +571,18 @@ class SLWN_Product_Filter_Buttons_Widget extends WP_Widget {
                 if (!input.name) return;
                 
                 let filterName = input.name;
-                if (filterName.indexOf('filter_') === 0) {
+                
+                // Sprawdź czy to filtr WooCommerce
+                if (filterName.indexOf('pa_') === 0 || 
+                    filterName === 'product_cat' || 
+                    filterName.indexOf('min_pa_') === 0 || 
+                    filterName.indexOf('max_pa_') === 0) {
+                    
                     // Dla checkboxów usuń [] z nazwy
                     if (filterName.endsWith('[]')) {
                         filterName = filterName.replace('[]', '');
                     }
                     allFilterNames.add(filterName);
-                }
-                
-                // Dodaj też product_cat jeśli istnieje
-                if (filterName === 'product_cat' || filterName === 'product_cat[]') {
-                    allFilterNames.add('product_cat');
                 }
             });
             
