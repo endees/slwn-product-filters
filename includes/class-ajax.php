@@ -158,24 +158,31 @@ class SLWN_Product_Filters_Ajax {
                 );
             }
             
-            // Attribute filters
-            if (preg_match('/^filter_(.+)$/', $key, $matches) && !preg_match('/_(min|max)$/', $key)) {
-                $attribute_name = sanitize_text_field($matches[1]);
+            // Attribute filters - obsługa nowego formatu pa_
+            if (preg_match('/^pa_(.+)$/', $key)) {
+                $attribute_name = sanitize_text_field(str_replace('pa_', '', $key));
                 $attribute_taxonomy = wc_attribute_taxonomy_name($attribute_name);
                 
                 if (taxonomy_exists($attribute_taxonomy)) {
-                    $args['tax_query'][] = array(
-                        'taxonomy' => $attribute_taxonomy,
-                        'field' => 'slug',
-                        'terms' => sanitize_text_field($value),
-                    );
+                    // Obsługa wielu wartości (checkboxy)
+                    $terms = is_array($value) ? array_map('sanitize_text_field', $value) : explode(',', sanitize_text_field($value));
+                    $terms = array_filter($terms); // Usuń puste wartości
+                    
+                    if (!empty($terms)) {
+                        $args['tax_query'][] = array(
+                            'taxonomy' => $attribute_taxonomy,
+                            'field' => 'slug',
+                            'terms' => $terms,
+                            'operator' => count($terms) > 1 ? 'IN' : 'IN'
+                        );
+                    }
                 }
             }
             
-            // Range filters (min/max)
-            if (preg_match('/^filter_(.+)_(min|max)$/', $key, $matches)) {
-                $attribute_name = sanitize_text_field($matches[1]);
-                $range_type = $matches[2]; // 'min' or 'max'
+            // Range filters (min/max) - obsługa nowego formatu min_pa_ i max_pa_
+            if (preg_match('/^(min|max)_pa_(.+)$/', $key, $matches)) {
+                $range_type = $matches[1]; // 'min' or 'max'
+                $attribute_name = sanitize_text_field($matches[2]);
                 $attribute_taxonomy = wc_attribute_taxonomy_name($attribute_name);
                 
                 if (taxonomy_exists($attribute_taxonomy)) {
@@ -256,9 +263,9 @@ class SLWN_Product_Filters_Ajax {
                     continue;
                 }
                 
-                // Standardowe filtry atrybutów
-                if (preg_match('/^filter_(.+)$/', $key, $matches) && !preg_match('/_(min|max)$/', $key)) {
-                    $attribute = $matches[1];
+                // Filtry atrybutów WooCommerce (pa_)
+                if (preg_match('/^pa_(.+)$/', $key)) {
+                    $attribute = str_replace('pa_', '', $key);
                     $attribute_taxonomy = wc_attribute_taxonomy_name($attribute);
                     
                     if (taxonomy_exists($attribute_taxonomy)) {
@@ -303,16 +310,16 @@ class SLWN_Product_Filters_Ajax {
                     // Dla pojedynczej kategorii WooCommerce automatycznie obsługuje parametr
                 }
                 
-                // Filtry zakresu (min/max) - poprawiona logika dla atrybutów
-                if (preg_match('/^filter_(.+)_(min|max)$/', $key, $matches)) {
-                    $attribute = $matches[1];
-                    $range_type = $matches[2];
+                // Filtry zakresu (min/max) - poprawiona logika dla atrybutów w formacie min_pa_ i max_pa_
+                if (preg_match('/^(min|max)_pa_(.+)$/', $key, $matches)) {
+                    $range_type = $matches[1]; // 'min' or 'max'
+                    $attribute = $matches[2];
                     $attribute_taxonomy = wc_attribute_taxonomy_name($attribute);
                     
                     if (taxonomy_exists($attribute_taxonomy)) {
-                        // Pobierz wartość min i max
-                        $min_key = 'filter_' . $attribute . '_min';
-                        $max_key = 'filter_' . $attribute . '_max';
+                        // Pobierz wartość min i max w nowym formacie
+                        $min_key = 'min_pa_' . $attribute;
+                        $max_key = 'max_pa_' . $attribute;
                         $min_value = isset($_GET[$min_key]) ? floatval($_GET[$min_key]) : null;
                         $max_value = isset($_GET[$max_key]) ? floatval($_GET[$max_key]) : null;
                         
